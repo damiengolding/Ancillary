@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="CyberKillChain" qt:editorversion="13.0.2">
+    <state id="CyberKillChain" initial="Reconnaissance">
+        <qt:editorinfo scenegeometry="-160.11;-203.56;-430.10;-417.23;1332.56;2312.33" geometry="-160.11;-203.56;-269.99;-213.67;1332.56;2312.33"/>
+        <state id="Installing">
+            <qt:editorinfo scenegeometry="289.61;1065.62;-188.67;1015.62;926.31;167.84" geometry="449.72;1269.18;-478.28;-50;926.31;167.84"/>
+            <transition type="external" event="Install" target="CommandAndControl">
+                <qt:editorinfo movePoint="32.52;0"/>
+            </transition>
+            <state id="InstallingAccessPoints">
+                <qt:editorinfo scenegeometry="-123.69;1114.85;-173;1064.85;238.65;100" geometry="-413.30;49.23;-49.31;-50;238.65;100"/>
+                <transition type="external" event="AccessEnabled" target="EstablishingPersistence">
+                    <qt:editorinfo movePoint="18.58;-9.29"/>
+                </transition>
+            </state>
+            <state id="EstablishingPersistence">
+                <qt:editorinfo scenegeometry="305.51;1112.06;206.01;1062.06;199;100" geometry="15.90;46.44;-99.50;-50;199;100"/>
+                <transition type="external" event="PersistenceEstablished" target="CoverTracks">
+                    <qt:editorinfo movePoint="-4.65;-17.65"/>
+                </transition>
+            </state>
+            <state id="CoverTracks">
+                <qt:editorinfo scenegeometry="656.75;1109.27;596.75;1059.27;120;100" geometry="367.14;43.65;-60;-50;120;100"/>
+            </state>
+        </state>
+        <state id="Delivering">
+            <qt:editorinfo scenegeometry="275.37;323.32;-188.27;273.32;922.58;296.18" geometry="435.48;526.88;-463.64;-50;922.58;296.18"/>
+            <transition type="external" event="Exploit" target="Exploiting">
+                <qt:editorinfo movePoint="34.38;0"/>
+            </transition>
+            <state id="SelectingDeliveryMechanism">
+                <qt:editorinfo scenegeometry="196.80;368.76;145.87;318.76;284.64;100" geometry="-78.57;45.44;-50.93;-50;284.64;100"/>
+                <transition type="external" event="AdversaryControlledDelievery" target="AdversaryControlling">
+                    <qt:editorinfo movePoint="-95.70;-8.36"/>
+                </transition>
+                <transition type="external" event="AdversaryReleasedDelievery" target="AdversaryReleasing">
+                    <qt:editorinfo movePoint="78.97;12.08"/>
+                </transition>
+            </state>
+            <state id="AdversaryControlling">
+                <qt:editorinfo scenegeometry="50.21;500.70;46.83;450.70;203;100" geometry="-225.16;177.38;-3.38;-50;203;100"/>
+            </state>
+            <state id="AdversaryReleasing">
+                <qt:editorinfo scenegeometry="409.83;500.55;349.40;450.55;191;100" geometry="134.46;177.23;-60.43;-50;191;100"/>
+            </state>
+        </state>
+        <state id="Weaponising">
+            <qt:editorinfo scenegeometry="-0.89;110.54;-185.89;50.70;923.66;175.64" geometry="159.22;314.10;-185;-59.84;923.66;175.64"/>
+            <transition type="external" event="Deliver" target="Delivering">
+                <qt:editorinfo movePoint="29.73;3.72"/>
+            </transition>
+            <state id="DevelopingExploit">
+                <qt:editorinfo scenegeometry="-19.26;149.67;-109.90;99.67;202.68;100" geometry="-18.37;39.13;-90.64;-50;202.68;100"/>
+                <transition type="external" event="DevelopExploit" target="DevelopingMalware"/>
+            </state>
+            <state id="DevelopingMalware">
+                <qt:editorinfo scenegeometry="271.07;153.75;211.07;103.75;162.86;100" geometry="271.96;43.21;-60;-50;162.86;100"/>
+                <transition type="external" event="DevelopPayload" target="DevelopingPayload">
+                    <qt:editorinfo movePoint="1.36;0"/>
+                </transition>
+            </state>
+            <state id="DevelopingPayload">
+                <qt:editorinfo scenegeometry="577.92;152.39;517.92;102.39;164.25;100" geometry="578.81;41.85;-60;-50;164.25;100"/>
+            </state>
+        </state>
+        <state id="Exploiting">
+            <qt:editorinfo scenegeometry="-93.70;674.08;-192.06;624.08;930.16;324.06" geometry="66.41;877.64;-98.36;-50;930.16;324.06"/>
+            <transition type="external" event="Exploit" target="Installing">
+                <qt:editorinfo movePoint="56.68;-0.93" endTargetFactors="28.92;42.94"/>
+            </transition>
+            <state id="SelectingTarget">
+                <qt:editorinfo scenegeometry="-262.88;734.52;-146.04;684.52;200.97;100" geometry="-169.18;60.44;116.84;-50;200.97;100"/>
+                <transition type="external" event="SelectedTarget" target="DevelopExploit"/>
+            </state>
+            <state id="DevelopExploit">
+                <qt:editorinfo scenegeometry="369.79;729.87;278.79;679.87;182;100" geometry="463.49;55.79;-91;-50;182;100"/>
+                <transition type="external" event="DevelopedAdversaryExploit" target="AdversaryTriggeringExploit">
+                    <qt:editorinfo movePoint="-96.62;-1.86"/>
+                </transition>
+                <transition type="external" event="DevelopedVictimExploit" target="VictimTriggeringExploit">
+                    <qt:editorinfo movePoint="85.48;-16.73"/>
+                </transition>
+            </state>
+            <state id="AdversaryTriggeringExploit">
+                <qt:editorinfo scenegeometry="135.70;872.95;12.20;822.95;247;100" geometry="229.40;198.87;-123.50;-50;247;100"/>
+            </state>
+            <state id="VictimTriggeringExploit">
+                <qt:editorinfo scenegeometry="609.81;879.46;500.81;829.46;218;100" geometry="703.51;205.38;-109;-50;218;100"/>
+            </state>
+        </state>
+        <parallel id="Reconnaissance">
+            <qt:editorinfo scenegeometry="-53;-170.32;-184.63;-236.64;923.65;243.86" geometry="107.11;33.24;-131.63;-66.32;923.65;243.86"/>
+            <transition type="external" event="Weaponise" target="Weaponising">
+                <qt:editorinfo movePoint="39.02;3.72"/>
+            </transition>
+            <state id="HarvestingEmailAddresses">
+                <qt:editorinfo scenegeometry="-57.81;-96.13;-117.81;-146.13;209.14;100" geometry="-4.81;74.19;-60;-50;209.14;100"/>
+            </state>
+            <state id="EnumeratePublicTechnology">
+                <qt:editorinfo scenegeometry="512.16;-96.13;452.16;-146.13;230.52;100" geometry="565.16;74.19;-60;-50;230.52;100"/>
+            </state>
+            <state id="IdentifyingEmployees">
+                <qt:editorinfo scenegeometry="162.56;-97.49;102.56;-147.49;177.85;100" geometry="215.56;72.83;-60;-50;177.85;100"/>
+            </state>
+            <state id="CollectingMarketing">
+                <qt:editorinfo scenegeometry="359.80;-97.49;284.09;-147.49;162.19;100" geometry="412.80;72.83;-75.71;-50;162.19;100"/>
+            </state>
+        </parallel>
+        <transition type="external" event="AttackComplete" target="Exit"/>
+        <state id="CommandAndControl">
+            <qt:editorinfo scenegeometry="-82.47;1298.67;-194.25;1237.67;937.47;157.77" geometry="77.64;1502.23;-111.78;-61;937.47;157.77"/>
+            <transition type="external" event="Control" target="TakingActionOnObjectives">
+                <qt:editorinfo movePoint="28.80;0"/>
+            </transition>
+            <state id="ConnectingToAccessPoints">
+                <qt:editorinfo scenegeometry="187.41;1329.48;127.41;1279.48;298.85;100" geometry="269.88;30.81;-60;-50;298.85;100"/>
+            </state>
+        </state>
+        <state id="TakingActionOnObjectives" initial="CollectingCreds">
+            <qt:editorinfo scenegeometry="195.99;1503.04;-222.60;1453.04;987.84;416.17" geometry="356.10;1706.60;-418.59;-50;987.84;416.17"/>
+            <state id="PerformingInternalReconnaissance">
+                <qt:editorinfo scenegeometry="297.38;1590.63;242.48;1540.63;310;100" geometry="110.71;87.59;-54.90;-50;310;100"/>
+                <transition type="external" event="ReconPerformed" target="MovingLaterally">
+                    <qt:editorinfo movePoint="14.30;-45.13"/>
+                </transition>
+            </state>
+            <state id="EscalatingPrivileges">
+                <qt:editorinfo scenegeometry="119.75;1593.94;24.25;1543.94;191;100" geometry="-66.92;90.90;-95.50;-50;191;100"/>
+                <transition type="external" event="PriviligesEscalated" target="PerformingInternalReconnaissance">
+                    <qt:editorinfo movePoint="11;-44.03"/>
+                </transition>
+            </state>
+            <parallel id="MaliciousActivities">
+                <qt:editorinfo scenegeometry="-52.28;1724.35;-178.99;1674.35;915.58;177.22" geometry="-248.27;221.31;-126.71;-50;915.58;177.22"/>
+                <state id="CollectingAndExfiltratingData">
+                    <qt:editorinfo scenegeometry="-20.34;1773.30;-143.34;1723.30;246;100" geometry="31.94;48.95;-123;-50;246;100"/>
+                </state>
+                <state id="DestroyingSystems">
+                    <qt:editorinfo scenegeometry="274.74;1775.45;188.24;1725.45;173;100" geometry="336.34;51.10;-86.50;-50;173;100"/>
+                </state>
+                <state id="OverwritingCorruptingData">
+                    <qt:editorinfo scenegeometry="559.97;1776.38;444.47;1726.38;231;100" geometry="621.57;52.03;-115.50;-50;231;100"/>
+                </state>
+            </parallel>
+            <state id="CollectingCreds">
+                <qt:editorinfo scenegeometry="-106.72;1594.18;-199.64;1544.18;173.12;100" geometry="-293.39;91.14;-92.92;-50;173.12;100"/>
+                <transition type="external" event="CredsCollected" target="EscalatingPrivileges">
+                    <qt:editorinfo movePoint="7.70;-44.02"/>
+                </transition>
+            </state>
+            <state id="MovingLaterally">
+                <qt:editorinfo scenegeometry="666.56;1592.66;585.56;1542.66;162;100" geometry="479.89;89.62;-81;-50;162;100"/>
+                <transition type="external" event="MovementComplete" target="MaliciousActivities">
+                    <qt:editorinfo startTargetFactors="77.47;75.70" movePoint="101.26;-1.10" endTargetFactors="54.03;11.39"/>
+                </transition>
+            </state>
+        </state>
+    </state>
+    <final id="Exit">
+        <qt:editorinfo scenegeometry="1061.28;738.93;1041.28;718.93;40;40" geometry="1061.28;738.93;-20;-20;40;40"/>
+    </final>
+</scxml>

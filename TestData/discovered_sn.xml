@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94SVN scan initiated Tue Feb 27 11:14:58 2024 as: nmap -sn -oX discovered.xml 192.168.4.1/24 -->
+<nmaprun scanner="nmap" args="nmap -sn -oX discovered.xml 192.168.4.1/24" start="1709032498" startstr="Tue Feb 27 11:14:58 2024" version="7.94SVN" xmloutputversion="1.05">
+<verbose level="0"/>
+<debugging level="0"/>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.1" addrtype="ipv4"/>
+<address addr="C0:36:53:E9:90:8D" addrtype="mac" vendor="eero"/>
+<hostnames>
+</hostnames>
+<times srtt="3485" rttvar="5000" to="100000"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.20" addrtype="ipv4"/>
+<address addr="7A:C3:59:0F:7C:67" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<times srtt="201427" rttvar="201427" to="1007135"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.21" addrtype="ipv4"/>
+<address addr="46:75:FF:A7:F6:0D" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<times srtt="109282" rttvar="104277" to="526390"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.23" addrtype="ipv4"/>
+<address addr="F8:59:71:85:3F:63" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+</hostnames>
+<times srtt="987" rttvar="5000" to="100000"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.31" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="GG02" type="PTR"/>
+</hostnames>
+<times srtt="194746" rttvar="194746" to="973730"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.32" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="MS2UBU" type="PTR"/>
+</hostnames>
+<times srtt="196104" rttvar="196104" to="980520"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.36" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="MS3WIN" type="PTR"/>
+</hostnames>
+<times srtt="198107" rttvar="198107" to="990535"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.38" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="WIN7" type="PTR"/>
+</hostnames>
+<times srtt="197832" rttvar="197832" to="989160"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.40" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="JUICE" type="PTR"/>
+</hostnames>
+<times srtt="35215" rttvar="35215" to="176075"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.41" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="WIN10" type="PTR"/>
+</hostnames>
+<times srtt="90068" rttvar="90068" to="450340"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.42" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="DCCS" type="PTR"/>
+</hostnames>
+<times srtt="108252" rttvar="108252" to="541260"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.46" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="WIN2K3SP0" type="PTR"/>
+</hostnames>
+<times srtt="107148" rttvar="107148" to="535740"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.50" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="MS3UBU" type="PTR"/>
+</hostnames>
+<times srtt="27227" rttvar="27227" to="136135"/>
+</host>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.4.51" addrtype="ipv4"/>
+<address addr="C4:D9:87:14:F8:84" addrtype="mac" vendor="Intel Corporate"/>
+<hostnames>
+<hostname name="WIN7VULN" type="PTR"/>
+</hostnames>
+<times srtt="109320" rttvar="69526" to="387424"/>
+</host>
+<host><status state="up" reason="localhost-response" reason_ttl="0"/>
+<address addr="192.168.4.25" addrtype="ipv4"/>
+<hostnames>
+<hostname name="KALI" type="PTR"/>
+</hostnames>
+</host>
+<runstats><finished time="1709032510" timestr="Tue Feb 27 11:15:10 2024" summary="Nmap done at Tue Feb 27 11:15:10 2024; 256 IP addresses (15 hosts up) scanned in 11.71 seconds" elapsed="11.71" exit="success"/><hosts up="15" down="241" total="256"/>
+</runstats>
+</nmaprun>

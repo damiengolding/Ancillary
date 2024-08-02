@@ -1,0 +1,4 @@
+LIBRARY RunDll
+EXPORTS
+    HelloWorld
+    WinEnum

@@ -1,0 +1,512 @@
+# Nmap 7.94SVN scan initiated Wed Feb 28 09:12:32 2024 as: nmap -sU -v -T5 -A -oA discworld_udp_01 --top-ports 100 -iL ../b_input/include.txt
+Warning: 192.168.4.32 giving up on port because retransmission cap hit (2).
+Warning: 192.168.4.36 giving up on port because retransmission cap hit (2).
+Warning: 192.168.4.40 giving up on port because retransmission cap hit (2).
+Warning: 192.168.4.29 giving up on port because retransmission cap hit (2).
+Warning: 192.168.4.41 giving up on port because retransmission cap hit (2).
+Warning: 192.168.4.42 giving up on port because retransmission cap hit (2).
+Warning: 192.168.4.51 giving up on port because retransmission cap hit (2).
+Increasing send delay for 192.168.4.29 from 0 to 50 due to 11 out of 13 dropped probes since last increase.
+Increasing send delay for 192.168.4.41 from 0 to 50 due to 11 out of 16 dropped probes since last increase.
+Increasing send delay for 192.168.4.42 from 0 to 50 due to 11 out of 25 dropped probes since last increase.
+Nmap scan report for DCCS (192.168.4.42)
+Host is up (0.0062s latency).
+Not shown: 74 open|filtered udp ports (no-response)
+PORT      STATE  SERVICE        VERSION
+7/udp     closed echo
+53/udp    open   domain         Simple DNS Plus
+|_dns-recursion: Recursion appears to be enabled
+69/udp    closed tftp
+88/udp    open   kerberos-sec   Microsoft Windows Kerberos (server time: 2024-02-28 09:13:01Z)
+123/udp   open   ntp            NTP v3
+| ntp-info: 
+|_  receive time stamp: 2024-02-28T09:36:13
+135/udp   closed msrpc
+137/udp   open   netbios-ns     Microsoft Windows netbios-ns (workgroup: DISCWORLD)
+| nbns-interfaces: 
+|   hostname: DISCWORLDDCCS
+|   interfaces: 
+|     192.168.4.42
+|     192.168.56.50
+|_    192.168.48.3
+161/udp   closed snmp
+497/udp   closed retrospect
+514/udp   closed syslog
+518/udp   closed ntalk
+593/udp   closed http-rpc-epmap
+623/udp   closed asf-rmcp
+1023/udp  closed unknown
+1812/udp  closed radius
+1900/udp  closed upnp
+2048/udp  closed dls-monitor
+5060/udp  closed sip
+5632/udp  closed pcanywherestat
+9200/udp  closed wap-wsp
+17185/udp closed wdbrpc
+49153/udp closed unknown
+49181/udp closed unknown
+49192/udp closed unknown
+49201/udp closed unknown
+65024/udp closed unknown
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|media device
+Running (JUST GUESSING): Microsoft Windows 10|2008|8.1|2012|2016|7 (95%), Microsoft embedded (95%)
+OS CPE: cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_server_2008:r2:sp1 cpe:/o:microsoft:windows_8.1 cpe:/h:microsoft:xbox_one cpe:/o:microsoft:windows_server_2012 cpe:/o:microsoft:windows_server_2016 cpe:/o:microsoft:windows_7
+Aggressive OS guesses: Microsoft Windows 10 (95%), Microsoft Windows 10 10586 - 14393 (95%), Microsoft Windows 10 1507 (95%), Microsoft Windows 10 1507 - 1607 (95%), Microsoft Windows 10 1511 (95%), Microsoft Windows 10 1607 (95%), Microsoft Windows 10 1703 (95%), Microsoft Windows 10 1709 - 1803 (95%), Microsoft Windows 10 1709 - 1909 (95%), Microsoft Windows 10 1809 - 2004 (95%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: Host: DISCWORLDDCCS; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: NetBIOS name: DISCWORLDDCCS, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:8e:d2:e7 (Oracle VirtualBox virtual NIC)
+| Names:
+|   DISCWORLDDCCS<00>    Flags: <unique><active>
+|   DISCWORLD<1c>        Flags: <group><active>
+|   DISCWORLD<00>        Flags: <group><active>
+|   DISCWORLDDCCS<20>    Flags: <unique><active>
+|_  DISCWORLD<1b>        Flags: <unique><active>
+|_clock-skew: 13s
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   6.17 ms DCCS (192.168.4.42)
+
+Nmap scan report for DB (192.168.4.29)
+Host is up (0.0071s latency).
+Not shown: 75 open|filtered udp ports (no-response)
+PORT      STATE  SERVICE        VERSION
+19/udp    closed chargen
+80/udp    closed http
+136/udp   closed profile
+137/udp   open   netbios-ns     Microsoft Windows netbios-ns (workgroup: DISCWORLD)
+| nbns-interfaces: 
+|   hostname: WIN2K8DB
+|   interfaces: 
+|     192.168.4.29
+|_    192.168.56.112
+177/udp   closed xdmcp
+443/udp   closed https
+445/udp   closed microsoft-ds
+514/udp   closed syslog
+623/udp   closed asf-rmcp
+626/udp   closed serialnumberd
+999/udp   closed applix
+1022/udp  closed exp2
+1433/udp  closed ms-sql-s
+1646/udp  closed radacct
+1719/udp  closed h323gatestat
+1900/udp  closed upnp
+2222/udp  closed msantipiracy
+3456/udp  closed IISrpc-or-vat
+9200/udp  closed wap-wsp
+17185/udp closed wdbrpc
+32768/udp closed omad
+32771/udp closed sometimes-rpc6
+49188/udp closed unknown
+49193/udp closed unknown
+65024/udp closed unknown
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|media device
+Running (JUST GUESSING): Microsoft Windows 10|2008|8.1|2012|2016|7 (95%), Microsoft embedded (95%)
+OS CPE: cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_server_2008:r2:sp1 cpe:/o:microsoft:windows_8.1 cpe:/h:microsoft:xbox_one cpe:/o:microsoft:windows_server_2012 cpe:/o:microsoft:windows_server_2016 cpe:/o:microsoft:windows_7
+Aggressive OS guesses: Microsoft Windows 10 (95%), Microsoft Windows 10 10586 - 14393 (95%), Microsoft Windows 10 1507 (95%), Microsoft Windows 10 1507 - 1607 (95%), Microsoft Windows 10 1511 (95%), Microsoft Windows 10 1607 (95%), Microsoft Windows 10 1703 (95%), Microsoft Windows 10 1709 - 1803 (95%), Microsoft Windows 10 1709 - 1909 (95%), Microsoft Windows 10 1809 - 2004 (95%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: Host: WIN2K8DB; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: NetBIOS name: WIN2K8DB, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:89:3d:6d (Oracle VirtualBox virtual NIC)
+| Names:
+|   WIN2K8DB<00>         Flags: <unique><active>
+|   DISCWORLD<00>        Flags: <group><active>
+|_  WIN2K8DB<20>         Flags: <unique><active>
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   7.09 ms DB (192.168.4.29)
+
+Nmap scan report for MS3UBU (192.168.4.50)
+Host is up (0.028s latency).
+Skipping host MS3UBU (192.168.4.50) due to host timeout
+Nmap scan report for WIN7VULN (192.168.4.51)
+Host is up (0.0069s latency).
+Not shown: 68 closed udp ports (port-unreach)
+PORT      STATE         SERVICE      VERSION
+9/udp     open|filtered discard
+17/udp    open|filtered qotd
+67/udp    open|filtered dhcps
+123/udp   open|filtered tcpwrapped
+137/udp   open          netbios-ns   Microsoft Windows netbios-ns (workgroup: WORKGROUP)
+| nbns-interfaces: 
+|   hostname: WIN7VULN
+|   interfaces: 
+|     192.168.4.51
+|_    192.168.56.119
+138/udp   open|filtered netbios-dgm
+158/udp   open|filtered tcpwrapped
+161/udp   open|filtered snmp
+445/udp   open|filtered tcpwrapped
+500/udp   open|filtered isakmp
+515/udp   open|filtered tcpwrapped
+520/udp   open|filtered tcpwrapped
+996/udp   open|filtered vsinet
+997/udp   open|filtered maitrd
+998/udp   open|filtered tcpwrapped
+999/udp   open|filtered tcpwrapped
+1027/udp  open|filtered tcpwrapped
+1718/udp  open|filtered h225gatedisc
+2000/udp  open|filtered tcpwrapped
+2222/udp  open|filtered msantipiracy
+3283/udp  open|filtered netassistant
+4500/udp  open|filtered nat-t-ike
+5632/udp  open|filtered tcpwrapped
+49152/udp open|filtered tcpwrapped
+49182/udp open|filtered unknown
+49186/udp open|filtered unknown
+49188/udp open|filtered unknown
+49191/udp open|filtered unknown
+49194/udp open|filtered unknown
+49200/udp open|filtered unknown
+49201/udp open|filtered tcpwrapped
+65024/udp open|filtered tcpwrapped
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|media device
+Running (JUST GUESSING): Microsoft Windows 10|2008|8.1|2012|2016|7 (95%), Microsoft embedded (95%)
+OS CPE: cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_server_2008:r2:sp1 cpe:/o:microsoft:windows_8.1 cpe:/h:microsoft:xbox_one cpe:/o:microsoft:windows_server_2012 cpe:/o:microsoft:windows_server_2016 cpe:/o:microsoft:windows_7
+Aggressive OS guesses: Microsoft Windows 10 (95%), Microsoft Windows 10 10586 - 14393 (95%), Microsoft Windows 10 1507 (95%), Microsoft Windows 10 1507 - 1607 (95%), Microsoft Windows 10 1511 (95%), Microsoft Windows 10 1607 (95%), Microsoft Windows 10 1703 (95%), Microsoft Windows 10 1709 - 1803 (95%), Microsoft Windows 10 1709 - 1909 (95%), Microsoft Windows 10 1809 - 2004 (95%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: Host: METASPLOITABLE; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: NetBIOS name: WIN7VULN, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:fa:ff:7e (Oracle VirtualBox virtual NIC)
+| Names:
+|   WIN7VULN<00>         Flags: <unique><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|   WIN7VULN<20>         Flags: <unique><active>
+|_  WORKGROUP<1e>        Flags: <group><active>
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   6.88 ms WIN7VULN (192.168.4.51)
+
+Nmap scan report for MS2UBU (192.168.4.32)
+Host is up (0.0078s latency).
+Not shown: 75 open|filtered udp ports (no-response)
+PORT      STATE  SERVICE        VERSION
+7/udp     closed echo
+53/udp    open   domain         ISC BIND 9.4.2
+| dns-nsid: 
+|_  bind.version: 9.4.2
+|_dns-recursion: Recursion appears to be enabled
+67/udp    closed dhcps
+80/udp    closed http
+111/udp   open   rpcbind        2 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2            111/tcp   rpcbind
+|   100000  2            111/udp   rpcbind
+|   100003  2,3,4       2049/tcp   nfs
+|   100003  2,3,4       2049/udp   nfs
+|   100005  1,2,3      35940/tcp   mountd
+|   100005  1,2,3      42632/udp   mountd
+|   100021  1,3,4      36164/tcp   nlockmgr
+|   100021  1,3,4      50700/udp   nlockmgr
+|   100024  1          49631/tcp   status
+|_  100024  1          54988/udp   status
+120/udp   closed cfdptkt
+137/udp   open   netbios-ns     Microsoft Windows netbios-ns (workgroup: WORKGROUP)
+| nbns-interfaces: 
+|   hostname: METASPLOITABLE
+|   interfaces: 
+|     192.168.4.32
+|_    192.168.56.101
+139/udp   closed netbios-ssn
+443/udp   closed https
+514/udp   closed syslog
+593/udp   closed http-rpc-epmap
+996/udp   closed vsinet
+1028/udp  closed ms-lsa
+1029/udp  closed solid-mux
+1719/udp  closed h323gatestat
+2048/udp  closed dls-monitor
+2049/udp  open   nfs            2-4 (RPC #100003)
+2223/udp  closed rockwell-csp2
+3456/udp  closed IISrpc-or-vat
+9200/udp  closed wap-wsp
+17185/udp closed wdbrpc
+32768/udp closed omad
+49153/udp closed unknown
+49181/udp closed unknown
+49185/udp closed unknown
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+Service Info: Host: METASPLOITABLE3; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| Names:
+|   METASPLOITABLE<00>   Flags: <unique><active>
+|   METASPLOITABLE<03>   Flags: <unique><active>
+|   METASPLOITABLE<20>   Flags: <unique><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|_  WORKGROUP<1e>        Flags: <group><active>
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   7.79 ms MS2UBU (192.168.4.32)
+
+Nmap scan report for MS3WIN (192.168.4.36)
+Host is up (0.0065s latency).
+Skipping host MS3WIN (192.168.4.36) due to host timeout
+Nmap scan report for WIN7 (192.168.4.38)
+Host is up (0.0055s latency).
+Not shown: 66 closed udp ports (port-unreach)
+PORT      STATE         SERVICE      VERSION
+9/udp     open|filtered discard
+17/udp    open|filtered tcpwrapped
+67/udp    open|filtered tcpwrapped
+123/udp   open|filtered ntp
+137/udp   open          netbios-ns   Microsoft Windows netbios-ns (workgroup: DISCWORLD)
+| nbns-interfaces: 
+|   hostname: WIN7DT1
+|   interfaces: 
+|     192.168.4.38
+|_    192.168.56.106
+138/udp   open|filtered netbios-dgm
+139/udp   open|filtered tcpwrapped
+158/udp   open|filtered tcpwrapped
+497/udp   open|filtered tcpwrapped
+500/udp   open|filtered isakmp
+520/udp   open|filtered tcpwrapped
+996/udp   open|filtered tcpwrapped
+997/udp   open|filtered tcpwrapped
+998/udp   open|filtered tcpwrapped
+999/udp   open|filtered tcpwrapped
+1027/udp  open|filtered tcpwrapped
+1028/udp  open|filtered tcpwrapped
+1718/udp  open|filtered tcpwrapped
+2000/udp  open|filtered tcpwrapped
+2222/udp  open|filtered msantipiracy
+3283/udp  open|filtered netassistant
+3703/udp  open|filtered tcpwrapped
+4500/udp  open|filtered nat-t-ike
+5632/udp  open|filtered tcpwrapped
+32769/udp open|filtered tcpwrapped
+49152/udp open|filtered tcpwrapped
+49182/udp open|filtered tcpwrapped
+49186/udp open|filtered unknown
+49188/udp open|filtered unknown
+49191/udp open|filtered tcpwrapped
+49194/udp open|filtered tcpwrapped
+49200/udp open|filtered tcpwrapped
+49201/udp open|filtered tcpwrapped
+65024/udp open|filtered tcpwrapped
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|media device
+Running (JUST GUESSING): Microsoft Windows 10|2008|8.1|2012|2016|7 (95%), Microsoft embedded (95%)
+OS CPE: cpe:/o:microsoft:windows_10 cpe:/o:microsoft:windows_server_2008:r2:sp1 cpe:/o:microsoft:windows_8.1 cpe:/h:microsoft:xbox_one cpe:/o:microsoft:windows_server_2012 cpe:/o:microsoft:windows_server_2016 cpe:/o:microsoft:windows_7
+Aggressive OS guesses: Microsoft Windows 10 (95%), Microsoft Windows 10 10586 - 14393 (95%), Microsoft Windows 10 1507 (95%), Microsoft Windows 10 1507 - 1607 (95%), Microsoft Windows 10 1511 (95%), Microsoft Windows 10 1607 (95%), Microsoft Windows 10 1703 (95%), Microsoft Windows 10 1709 - 1803 (95%), Microsoft Windows 10 1709 - 1909 (95%), Microsoft Windows 10 1809 - 2004 (95%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+Service Info: Host: WIN10DT1; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: NetBIOS name: WIN7DT1, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:10:2c:6e (Oracle VirtualBox virtual NIC)
+| Names:
+|   WIN7DT1<00>          Flags: <unique><active>
+|   DISCWORLD<00>        Flags: <group><active>
+|   WIN7DT1<20>          Flags: <unique><active>
+|   DISCWORLD<1e>        Flags: <group><active>
+|   DISCWORLD<1d>        Flags: <unique><active>
+|_  \x01\x02__MSBROWSE__\x02<01>  Flags: <group><active>
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   5.46 ms WIN7 (192.168.4.38)
+
+Nmap scan report for WIN10 (192.168.4.41)
+Host is up (0.0063s latency).
+Skipping host WIN10 (192.168.4.41) due to host timeout
+Nmap scan report for JUICE (192.168.4.40)
+Host is up (0.0055s latency).
+Not shown: 79 open|filtered udp ports (no-response)
+PORT      STATE  SERVICE        VERSION
+19/udp    closed chargen
+53/udp    closed domain
+69/udp    closed tftp
+120/udp   closed cfdptkt
+136/udp   closed profile
+445/udp   closed microsoft-ds
+514/udp   closed syslog
+515/udp   closed printer
+593/udp   closed http-rpc-epmap
+1645/udp  closed radius
+1813/udp  closed radacct
+2222/udp  closed msantipiracy
+2223/udp  closed rockwell-csp2
+9200/udp  closed wap-wsp
+10000/udp closed ndmp
+33281/udp closed unknown
+49153/udp closed unknown
+49181/udp closed unknown
+49185/udp closed unknown
+49192/udp closed unknown
+49201/udp closed unknown
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   5.55 ms JUICE (192.168.4.40)
+
+Nmap scan report for WIN2K3SP0 (192.168.4.46)
+Host is up (0.0063s latency).
+Not shown: 85 closed udp ports (port-unreach)
+PORT     STATE         SERVICE       VERSION
+7/udp    open          echo
+9/udp    open|filtered discard
+17/udp   open          qotd          Windows qotd (English)
+19/udp   open          chargen
+53/udp   open          domain        Simple DNS Plus
+|_dns-recursion: Recursion appears to be enabled
+123/udp  open|filtered ntp
+135/udp  open          msrpc
+137/udp  open          netbios-ns    Microsoft Windows netbios-ssn (workgroup: WORKGROUP)
+| nbns-interfaces: 
+|   hostname: WIN2K3SP0
+|   interfaces: 
+|     192.168.56.116
+|_    192.168.4.46
+138/udp  open|filtered netbios-dgm
+161/udp  open|filtered snmp
+445/udp  open|filtered microsoft-ds
+500/udp  open|filtered isakmp
+1029/udp open          domain        Simple DNS Plus
+3456/udp open|filtered IISrpc-or-vat
+4500/udp open|filtered nat-t-ike
+MAC Address: C4:D9:87:14:F8:84 (Intel Corporate)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: NetBIOS name: WIN2K3SP0, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:f3:21:2c (Oracle VirtualBox virtual NIC)
+| Names:
+|   WIN2K3SP0<00>        Flags: <unique><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|   WIN2K3SP0<20>        Flags: <unique><active>
+|_  WORKGROUP<1e>        Flags: <group><active>
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   6.25 ms WIN2K3SP0 (192.168.4.46)
+
+Nmap scan report for 192.168.4.1
+Host is up (0.0035s latency).
+Not shown: 78 open|filtered udp ports (no-response)
+PORT      STATE  SERVICE        VERSION
+49/udp    closed tacacs
+53/udp    open   domain         (generic dns response: NOTIMP)
+| fingerprint-strings: 
+|   DNSVersionBindReq: 
+|     version
+|     bind
+|     root-servers
+|     nstld
+|     verisign-grs
+|   NBTStat: 
+|     CKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+|     root-servers
+|     nstld
+|_    verisign-grs
+|_dns-recursion: Recursion appears to be enabled
+88/udp    closed kerberos-sec
+123/udp   open   ntp            NTP v4 (secondary server)
+| ntp-info: 
+|_  receive time stamp: 2024-02-28T09:38:00
+136/udp   closed profile
+162/udp   closed snmptrap
+500/udp   closed isakmp
+514/udp   closed syslog
+1023/udp  closed unknown
+1812/udp  closed radius
+1813/udp  closed radacct
+2049/udp  closed nfs
+5000/udp  closed upnp
+5353/udp  open   mdns           DNS-based service discovery
+| dns-service-discovery: 
+|   80/tcp alexa
+|     skillSetupId=7cca14ff-6c27-4ce6-9969-8db36db99a4f
+|     version=1
+|     type=Alexa.Networking
+|     Address=192.168.4.1 fdd2:1c66:7ea8:1::1
+|   80/tcp eerogw
+|     base_mac=c0:36:53:e9:90:80
+|     Address=192.168.4.1 fdd2:1c66:7ea8:1::1
+|   49022/udp trel
+|     xa=\xFB\xC6\x0F\xB2}w\xEBE
+|     xp=V\xD53\xB8\x85i\xB3\xC4
+|     Address=192.168.4.1 fdd2:1c66:7ea8:1::1
+|   49191/udp meshcop
+|     nn=eero-thread
+|     tv=0.0.0
+|     vd=0.1.0
+|     vn=eero
+|     vo=\x14"\xDB
+|     sb=\x00\x00\x00\x00
+|     rv=1
+|     id=fbc60fb27d77eb45
+|     vn=eero
+|     mn=thread
+|     nn=eero-thread-037c
+|     xp=V\xD53\xB8\x85i\xB3\xC4
+|     tv=1.3.0
+|     xa=\xFB\xC6\x0F\xB2}w\xEBE
+|     sb=\x00\x00\x01\xB1
+|     at=\x00\x00e\xD1jA\x00\x00
+|     pt=
+|     s9M
+|     sq=?
+|     bb=\xF0\xBF
+|     dn=DefaultDomain
+|     omr=@\xFD\xF6\x108\xB6"\x00\x01
+|_    Address=192.168.4.1 fdd2:1c66:7ea8:1::1
+5632/udp  closed pcanywherestat
+9200/udp  closed wap-wsp
+17185/udp closed wdbrpc
+30718/udp closed unknown
+31337/udp closed BackOrifice
+49153/udp closed unknown
+49181/udp closed unknown
+49188/udp closed unknown
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port53-UDP:V=7.94SVN%I=7%D=2/28%Time=65DEFD7D%P=x86_64-pc-linux-gnu%r(D
+SF:NSVersionBindReq,69,"\0\x06\x81\x03\0\x01\0\0\0\x01\0\0\x07version\x04b
+SF:ind\0\0\x10\0\x03\0\0\x06\0\x01\0\0\x0e\x10\0@\x01a\x0croot-servers\x03
+SF:net\0\x05nstld\x0cverisign-grs\x03com\0x\xa4#\x10\0\0\x07\x08\0\0\x03\x
+SF:84\0\t:\x80\0\x01Q\x80")%r(DNSStatusRequest,C,"\0\0\x90\x04\0\0\0\0\0\0
+SF:\0\0")%r(NBTStat,7D,"\x80\xf0\x80\x13\0\x01\0\0\0\x01\0\0\x20CKAAAAAAAA
+SF:AAAAAAAAAAAAAAAAAAAAAA\0\0!\0\x01\0\0\x06\0\x01\0\0\x0e\x10\0@\x01a\x0c
+SF:root-servers\x03net\0\x05nstld\x0cverisign-grs\x03com\0x\xa4#\x10\0\0\x
+SF:07\x08\0\0\x03\x84\0\t:\x80\0\x01Q\x80");
+MAC Address: C0:36:53:E9:90:8D (eero)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+Host script results:
+|_clock-skew: 23s
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   3.53 ms 192.168.4.1
+
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Feb 28 09:46:59 2024 -- 11 IP addresses (11 hosts up) scanned in 2066.92 seconds

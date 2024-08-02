@@ -1,0 +1,13 @@
+IP address       NetBIOS Name     Server    User             MAC address
+------------------------------------------------------------------------------
+192.168.4.23     GOLDINGSGYM03    <server>  <unknown>        f8:59:71:85:3f:63
+192.168.4.31     GOLDINGSGYM02    <server>  <unknown>        c4:d9:87:14:f8:84
+192.168.4.32     METASPLOITABLE   <server>  METASPLOITABLE   00:00:00:00:00:00
+192.168.4.36     METASPLOITABLE3  <server>  <unknown>        08:00:27:d6:f7:76
+192.168.4.33     OWASPBWA         <server>  OWASPBWA         00:00:00:00:00:00
+192.168.4.41     WIN10DT1         <server>  <unknown>        08:00:27:42:54:61
+192.168.4.42     DISCWORLDDCCS    <server>  <unknown>        08:00:27:8e:d2:e7
+192.168.4.46     WIN2K3SP0        <server>  <unknown>        08:00:27:f3:21:2c
+192.168.4.38     WIN7DT1          <server>  <unknown>        08:00:27:10:2c:6e
+192.168.4.51     WIN7VULN         <server>  <unknown>        08:00:27:fa:ff:7e
+192.168.4.255   Sendto failed: Permission denied

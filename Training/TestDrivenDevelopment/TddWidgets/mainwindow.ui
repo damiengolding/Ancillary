@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1060</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1060</width>
+    <height>750</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1060</width>
+    <height>750</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Open Sans</family>
+    <pointsize>11</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Widgets TDD Test</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res/resources.qrc">
+    <normaloff>:/icons/logo.png</normaloff>:/icons/logo.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tabHome">
+       <attribute name="title">
+        <string>Home</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelLogo">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="res/resources.qrc">:/icons/wallpaper.png</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabWidgets">
+       <attribute name="title">
+        <string>Widgets</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBoxTextInput">
+          <property name="title">
+           <string>Text input</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelPassword">
+             <property name="text">
+              <string>Password text</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEditPlain">
+             <property name="toolTip">
+              <string>Sam Vimes</string>
+             </property>
+             <property name="placeholderText">
+              <string extracomment="Type sometbhing here"/>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelPlainText">
+             <property name="text">
+              <string>Plain text</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditPassword">
+             <property name="toolTip">
+              <string>Rincewind</string>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QTextEdit" name="textEdit">
+             <property name="toolTip">
+              <string>Lord Vetinari</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBoxItemWidgets">
+          <property name="title">
+           <string>Item widgets</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Tree widget</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>List widget</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" rowspan="3">
+            <widget class="QTreeWidget" name="treeWidget">
+             <property name="toolTip">
+              <string>Lu Tze</string>
+             </property>
+             <column>
+              <property name="text">
+               <string>Project explorer</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>TddConsole</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>sources</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>includes</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>resources</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>TddMain</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>sources</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>includes</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>resources</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>TddWidgets</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>sources</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>includes</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>resources</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QListWidget" name="listWidget">
+             <property name="toolTip">
+              <string>Angua</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>TddConsole</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>TddMain</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>TddWidgets</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Table widget</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QTableWidget" name="tableWidget">
+             <property name="toolTip">
+              <string>The Librarian</string>
+             </property>
+             <row>
+              <property name="text">
+               <string>TddConsole</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>TddMain</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>TddWIdgets</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>Type</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Description</string>
+              </property>
+             </column>
+             <item row="0" column="0">
+              <property name="text">
+               <string>console</string>
+              </property>
+             </item>
+             <item row="0" column="1">
+              <property name="text">
+               <string>Console application using Golding's Gym template</string>
+              </property>
+             </item>
+             <item row="1" column="0">
+              <property name="text">
+               <string>test</string>
+              </property>
+             </item>
+             <item row="1" column="1">
+              <property name="text">
+               <string>Console application using Qt Test Application template</string>
+              </property>
+             </item>
+             <item row="2" column="0">
+              <property name="text">
+               <string>widgets</string>
+              </property>
+             </item>
+             <item row="2" column="1">
+              <property name="text">
+               <string>GUI application using Qt WIdgets Application template</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBoxInputWidgets">
+          <property name="title">
+           <string>Input widgets</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Combo box</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="4">
+            <widget class="QComboBox" name="comboBox">
+             <property name="toolTip">
+              <string>Granny Weatherwax</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Project</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Class</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Header</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Footer</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>.pro</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>JavaScript</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Python</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Font combo box</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2" colspan="3">
+            <widget class="QFontComboBox" name="fontComboBox">
+             <property name="toolTip">
+              <string>Nanny Ogg</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Values</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QSpinBox" name="spinBox">
+             <property name="toolTip">
+              <string>Magrat</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="toolTip">
+              <string>Blind Io</string>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QDial" name="dial">
+             <property name="toolTip">
+              <string>Cohen the Barbarian</string>
+             </property>
+             <property name="notchesVisible">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Date/time</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2" colspan="2">
+            <widget class="QTimeEdit" name="timeEdit"/>
+           </item>
+           <item row="3" column="4">
+            <widget class="QDateEdit" name="dateEdit"/>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Scroll bar</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2" colspan="3">
+            <widget class="QScrollBar" name="horizontalScrollBar">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QGroupBox" name="groupBoxDisplayWidgets">
+          <property name="title">
+           <string>Display widgets</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Slider</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="3">
+            <widget class="QSlider" name="horizontalSlider">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Progress bar</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QProgressBar" name="progressBar">
+             <property name="value">
+              <number>24</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>LCD display</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2" colspan="2">
+            <widget class="QLCDNumber" name="lcdNumber">
+             <property name="digitCount">
+              <number>9</number>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="3">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Label with pixmap</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLabel" name="labelImage">
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1060</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionNewProject"/>
+    <addaction name="actionPreferencesDialog"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <widget class="QMenu" name="menu_Tests">
+    <property name="title">
+     <string>&amp;Tests</string>
+    </property>
+    <addaction name="actionWidgets"/>
+    <addaction name="actionPreferences"/>
+    <addaction name="actionWizard"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Tests"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNewProject">
+   <property name="text">
+    <string>New &amp;project</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>A&amp;bout</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="actionWidgets">
+   <property name="text">
+    <string>Widgets</string>
+   </property>
+  </action>
+  <action name="actionBrowser">
+   <property name="text">
+    <string>Browser</string>
+   </property>
+  </action>
+  <action name="actionWizard">
+   <property name="text">
+    <string>Wizard</string>
+   </property>
+  </action>
+  <action name="actionPreferencesDialog">
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>lineEditPlain</tabstop>
+  <tabstop>lineEditPassword</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>treeWidget</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>fontComboBox</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>doubleSpinBox</tabstop>
+  <tabstop>dial</tabstop>
+  <tabstop>timeEdit</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>horizontalSlider</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
+ <resources>
+  <include location="res/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>IntroWizardPage</class>
+ <widget class="QWizardPage" name="IntroWizardPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>266</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Introduction</string>
+  </property>
+  <property name="subTitle">
+   <string extracomment="This is a test wizard which will create a new directory structure for a penetration test project">This is a test wizard which will create a new directory structure for a penetration test project</string>
+  </property>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
