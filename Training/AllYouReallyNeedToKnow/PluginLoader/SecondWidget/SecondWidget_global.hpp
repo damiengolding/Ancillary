@@ -21,11 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
+#pragma once
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
+#include <QtCore/qglobal.h>
 
-    return a.exec();
-}
+#if defined(SECONDWIDGET_LIBRARY)
+#  define SECONDWIDGET_EXPORT Q_DECL_EXPORT
+#else
+#  define SECONDWIDGET_EXPORT Q_DECL_IMPORT
+#endif

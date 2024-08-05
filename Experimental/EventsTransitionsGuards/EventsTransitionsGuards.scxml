@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="EventsTransitionsGuards" qt:editorversion="14.0.0">
+    <state id="State_1">
+        <qt:editorinfo scenegeometry="210.85;78.73;150.85;28.73;1005.76;501.50" geometry="210.85;78.73;-60;-50;1005.76;501.50"/>
+        <state id="IdleState">
+            <qt:editorinfo scenegeometry="551.70;156.52;491.70;106.52;287.21;102.20" geometry="340.85;77.79;-60;-50;287.21;102.20"/>
+            <transition type="external" event="Transition_11" target="CreatingState"/>
+            <transition type="external" event="Transition_13" target="OpeningState"/>
+            <transition type="external" event="Transition_15" target="SavingState">
+                <qt:editorinfo endTargetFactors="25.92;59.63"/>
+            </transition>
+            <transition type="external" event="Transition_17" target="ClosingState"/>
+            <transition type="external" event="Transition_19" target="State_7"/>
+        </state>
+        <state id="CreatingState">
+            <qt:editorinfo scenegeometry="275.33;404.23;215.33;354.23;120;100" geometry="64.48;325.50;-60;-50;120;100"/>
+            <transition type="external" event="Transition_12" target="IdleState">
+                <qt:editorinfo endTargetFactors="11.96;43.87"/>
+            </transition>
+        </state>
+        <state id="OpeningState">
+            <qt:editorinfo scenegeometry="473.89;404.22;413.89;354.22;120;100" geometry="263.04;325.49;-60;-50;120;100"/>
+            <transition type="external" event="Transition_14" target="IdleState">
+                <qt:editorinfo endTargetFactors="79.14;65.52"/>
+            </transition>
+        </state>
+        <state id="SavingState">
+            <qt:editorinfo scenegeometry="666.35;404.31;606.35;354.31;120;100" geometry="455.50;325.58;-60;-50;120;100"/>
+            <transition type="external" event="Transition_16" target="IdleState">
+                <qt:editorinfo endTargetFactors="77.45;53.40"/>
+            </transition>
+        </state>
+        <state id="ClosingState">
+            <qt:editorinfo scenegeometry="857.76;403.21;797.76;353.21;120;100" geometry="646.91;324.48;-60;-50;120;100"/>
+            <transition type="external" event="Transition_18" target="IdleState">
+                <qt:editorinfo endTargetFactors="86.23;62.13"/>
+            </transition>
+        </state>
+        <state id="State_7">
+            <qt:editorinfo scenegeometry="1049.18;405.25;989.18;355.25;120;100" geometry="838.33;326.52;-60;-50;120;100"/>
+            <transition type="external" event="Transition_20" target="IdleState">
+                <qt:editorinfo endTargetFactors="75.77;52.60"/>
+            </transition>
+        </state>
+        <transition type="external" event="ApplicationExit" target="Final_1"/>
+    </state>
+    <final id="Final_1">
+        <qt:editorinfo scenegeometry="1285.60;266.13;1265.60;246.13;40;40" geometry="1285.60;266.13;-20;-20;40;40"/>
+    </final>
+</scxml>

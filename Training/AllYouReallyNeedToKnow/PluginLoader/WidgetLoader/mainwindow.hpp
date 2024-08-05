@@ -21,11 +21,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
+#pragma once
 
-int main(int argc, char *argv[])
+#include <QMainWindow>
+#include <QtPlugin>
+#include "widgetplugin.hpp"
+
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
+#include <QPluginLoader>
+#include <QSettings>
+
+class MainWindow : public QMainWindow
 {
-    QCoreApplication a(argc, argv);
+    Q_OBJECT
 
-    return a.exec();
-}
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+private:
+    Ui::MainWindow *ui;
+
+    QList<QPluginLoader*> m_plugins;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+    void readSettings();
+    void loadPlugins();
+};

@@ -21,11 +21,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
+#include "firstwidget.hpp"
 
-int main(int argc, char *argv[])
+#include <QLabel>
+
+FirstWidget::FirstWidget(QObject *parent)
 {
-    QCoreApplication a(argc, argv);
 
-    return a.exec();
+}
+
+QString FirstWidget::getName()
+{
+    return("First widget");
+}
+
+QWidget *FirstWidget::getWidget()
+{
+    QLabel* label = new QLabel("QLabel from plugin");
+    label->setAlignment( Qt::AlignCenter );
+    return(label);
 }

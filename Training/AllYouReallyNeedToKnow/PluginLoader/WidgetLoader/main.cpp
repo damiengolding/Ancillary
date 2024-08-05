@@ -21,11 +21,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
+#include "mainwindow.hpp"
+
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
+    a.setApplicationName("widgetloader");
+    a.setApplicationVersion("1.0.0");
+    a.setOrganizationName("Golding's Gym");
+    a.setOrganizationDomain("https://github.com/damiengolding");
 
+    MainWindow w;
+    w.show();
     return a.exec();
 }

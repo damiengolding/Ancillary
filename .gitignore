@@ -13,6 +13,7 @@
 # Directories
 *Output/
 *Deploy/
+Scratchpad/
 
 # Qt-es
 object_script.*.Release

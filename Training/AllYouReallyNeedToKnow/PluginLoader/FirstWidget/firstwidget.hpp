@@ -21,11 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
+#pragma once
 
-int main(int argc, char *argv[])
+#include <QObject>
+#include <QDebug>
+#include <QtWidgets/QWidget>
+#include "FirstWidget_global.hpp"
+
+#include "../WidgetLoader/widgetplugin.hpp"
+
+class FIRSTWIDGET_EXPORT FirstWidget : public QObject, public WidgetPlugin
 {
-    QCoreApplication a(argc, argv);
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "com.goldingsgym.FirstWidget")
+    Q_INTERFACES(WidgetPlugin)
+public:
+    explicit FirstWidget(QObject* parent = nullptr) ;
+    virtual ~FirstWidget() {}
 
-    return a.exec();
-}
+public slots:
+
+signals:
+
+    // WidgetPlugin interface
+public:
+    QString getName() override;
+    QWidget *getWidget() override;
+};
+

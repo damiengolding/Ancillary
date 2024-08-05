@@ -21,11 +21,63 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
 
-int main(int argc, char *argv[])
+#include <QAbstractTransition>
+#include <QEvent>
+#pragma once
+
+/*!
+ * \brief The EnumStruct class
+ */
+
+struct EnumStruct{
+    enum Events{
+        EnterIdling,
+        EnterOpening,
+        EnterSaving,
+        EnterCreating,
+        EnterSleeping,
+        EnterClosing
+    };
+
+};
+
+/*!
+ * \brief The EnumEvent class
+ */
+
+struct EnumEvent : public QEvent
 {
-    QCoreApplication a(argc, argv);
+    EnumEvent(EnumStruct::Events eventEnum)
+    : QEvent(QEvent::Type(QEvent::User+1)),
+      value(eventEnum) {}
 
-    return a.exec();
-}
+    EnumStruct::Events value;
+};
+
+/*!
+ * \brief The EnumTransition class
+ */
+
+class EnumTransition : public QAbstractTransition
+{
+    Q_OBJECT
+
+public:
+    EnumTransition(EnumStruct::Events eventEnum)
+        : m_value(eventEnum) {}
+
+protected:
+    bool eventTest(QEvent *e) override
+    {
+        if (e->type() != QEvent::Type(QEvent::User+1)) // EnumEvent
+            return false;
+        EnumEvent *ee = static_cast<EnumEvent*>(e);
+        return (m_value == ee->value);
+    }
+
+    void onTransition(QEvent *) override {}
+
+private:
+    EnumStruct::Events m_value;
+};

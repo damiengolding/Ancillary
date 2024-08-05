@@ -21,11 +21,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
+#include "secondwidget.hpp"
 
-int main(int argc, char *argv[])
+#include <QPushButton>
+
+SecondWidget::SecondWidget(QObject *parent)
 {
-    QCoreApplication a(argc, argv);
 
-    return a.exec();
+}
+
+QString SecondWidget::getName()
+{
+    return("Second widget");
+}
+
+QWidget *SecondWidget::getWidget()
+{
+    QPushButton* pushButton = new QPushButton("QPushButton from plugin");
+    return(pushButton);
 }
