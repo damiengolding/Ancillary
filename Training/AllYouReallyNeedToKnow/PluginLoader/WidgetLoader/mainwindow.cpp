@@ -76,7 +76,7 @@ void MainWindow::loadPlugins()
 
     for( auto loader : m_plugins ){
         if ( loader->isLoaded() ){
-            WidgetPlugin* widgetPlugin = dynamic_cast<WidgetPlugin*>( loader->instance() );
+            WidgetPlugin* widgetPlugin = qobject_cast<WidgetPlugin*>( loader->instance() );
             if( widgetPlugin ){
                 ui->tabWidget->addTab( widgetPlugin->getWidget(), widgetPlugin->getName() );
             }
