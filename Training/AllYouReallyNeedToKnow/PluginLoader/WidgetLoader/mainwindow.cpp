@@ -45,7 +45,6 @@ void MainWindow::readSettings(){
 void MainWindow::loadPlugins()
 {
     ui->statusbar->showMessage("Starting to load plugins");
-    // QString pluginPath = QApplication::applicationDirPath().append("/widgets");
     QString pluginPath = QDir::currentPath().append("/widgets");
 
     QDir pluginDir(pluginPath);
@@ -82,9 +81,6 @@ void MainWindow::loadPlugins()
             }
         }
     }
-
-
-
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
