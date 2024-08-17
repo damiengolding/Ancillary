@@ -1,7 +1,23 @@
-QT = core testlib
-CONFIG += c++20 cmdline warn_off
+QT += testlib
+QT -= gui
 
-SOURCES += \
-        main.cpp \
+CONFIG += qt console warn_on depend_includepath testcase
+CONFIG -= app_bundle
 
-HEADERS +=
+TEMPLATE = app
+
+SOURCES +=  tst_propertysystem.cpp \
+    connections/basicsignalclass.cpp \
+    connections/basicslotclass.cpp \
+    propertysystem.cpp \
+    utils/autoconnect.cpp
+
+HEADERS += \
+    connections/basicsignalclass.hpp \
+    connections/basicslotclass.hpp \
+    propertysystem.hpp \
+    utils/autoconnect.hpp
+
+INCLUDEPATH += \
+    connections/ \
+    utils/
