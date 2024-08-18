@@ -21,23 +21,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QtTest>
-#include <QCoreApplication>
+
+#pragma once
+
+#include <QString>
+#include <QMetaEnum>
 #include <QDebug>
 
-#include "propertysystem.hpp"
-#include "custom/myvariant.hpp"
-
-PropertySystem::PropertySystem()
-{
-    qRegisterMetaType<MyVariant>();
+template<typename E>
+E EnumFromString(const QString &textValue){
+    bool ok;
+    auto enumResult = static_cast<E>(QMetaEnum::fromType<E>().keyToValue(textValue,&ok));
+    if(!ok){
+        qDebug()<<"Could not convert " << textValue << " to enum.";
+        return{};
+    }
+    return(enumResult);
 }
 
-PropertySystem::~PropertySystem()
-{
 
+template<typename E>
+QString StringFromEnum(E value){
+    const int intRepresentation = static_cast<int>(value);
+    return( QString::fromUtf8(QMetaEnum::fromType<E>().valueToKey(intRepresentation)) );
 }
-
-QTEST_MAIN(PropertySystem)
-
-// #include "tst_propertysystem.moc"

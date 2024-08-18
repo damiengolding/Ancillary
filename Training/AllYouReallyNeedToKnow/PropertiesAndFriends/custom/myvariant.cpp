@@ -21,23 +21,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QtTest>
-#include <QCoreApplication>
-#include <QDebug>
+#include "myvariant.hpp"
 
-#include "propertysystem.hpp"
-#include "custom/myvariant.hpp"
-
-PropertySystem::PropertySystem()
+QString MyVariant::ipAddress() const
 {
-    qRegisterMetaType<MyVariant>();
+    return m_ipAddress;
 }
 
-PropertySystem::~PropertySystem()
+void MyVariant::setIpAddress(const QString &newIpAddress)
 {
-
+    m_ipAddress = newIpAddress;
 }
 
-QTEST_MAIN(PropertySystem)
+int MyVariant::portNumber() const
+{
+    return m_portNumber;
+}
 
-// #include "tst_propertysystem.moc"
+void MyVariant::setPortNumber(int newPortNumber)
+{
+    m_portNumber = newPortNumber;
+}
+
+QString MyVariant::portState() const
+{
+    return m_portState;
+}
+
+void MyVariant::setPortState(const QString &newPortState)
+{
+    m_portState = newPortState;
+}

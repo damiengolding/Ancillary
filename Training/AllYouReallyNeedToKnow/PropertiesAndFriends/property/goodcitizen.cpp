@@ -21,23 +21,62 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QtTest>
-#include <QCoreApplication>
-#include <QDebug>
+#include "goodcitizen.hpp"
 
-#include "propertysystem.hpp"
-#include "custom/myvariant.hpp"
-
-PropertySystem::PropertySystem()
-{
-    qRegisterMetaType<MyVariant>();
-}
-
-PropertySystem::~PropertySystem()
+GoodCitizen::GoodCitizen(QObject *parent)
+    : QObject{parent}
 {
 
 }
 
-QTEST_MAIN(PropertySystem)
+GoodCitizen::TestType GoodCitizen::testType() const
+{
+    return m_testType;
+}
 
-// #include "tst_propertysystem.moc"
+void GoodCitizen::setTestType(TestType newTestType)
+{
+    if (m_testType == newTestType)
+        return;
+    m_testType = newTestType;
+    emit testTypeChanged();
+}
+
+GoodCitizen::TestTeam GoodCitizen::testTeam() const
+{
+    return m_testTeam;
+}
+
+void GoodCitizen::setTestTeam(TestTeam newTestTeam)
+{
+    if (m_testTeam == newTestTeam)
+        return;
+    m_testTeam = newTestTeam;
+    emit testTeamChanged();
+}
+
+void GoodCitizen::doStuff()
+{
+
+}
+
+void GoodCitizen::doSomeStuff()
+{
+
+}
+
+void GoodCitizen::doMoreStuff()
+{
+
+}
+
+void GoodCitizen::doEvenMoreStuff()
+{
+
+}
+
+void GoodCitizen::doLoadsaStuff()
+{
+
+}
+

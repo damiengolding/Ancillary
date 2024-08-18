@@ -24,38 +24,53 @@ SOFTWARE.
 #pragma once
 
 #include <QObject>
-#include <QDebug>
-#include <QSignalSpy>
-#include <QTest>
-#include <QSettings>
 
-#include "utils/enumconvertor.hpp"
-#include "property/goodcitizen.hpp"
-#include "custom/myvariant.hpp"
-
-class PropertySystem : public QObject
+class GoodCitizen : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(TestType testType READ testType WRITE setTestType NOTIFY testTypeChanged FINAL)
+    Q_PROPERTY(TestTeam testTeam READ testTeam WRITE setTestTeam NOTIFY testTeamChanged FINAL)
 
 public:
-    PropertySystem();
-    ~PropertySystem();
+    explicit GoodCitizen(QObject *parent = nullptr);
 
+    enum TestType{
+        Infrastructure,
+        Web,
+        Wireless,
+        Phishing
+    };
+    Q_ENUM( TestType )
 
-private slots:
-    void MustPrintReadableEnums();
-    void MustProvideDynamicProperties();
-    void MustProvideBindableProperties();
-    void MustProvideAutoConnect();
-    void MustAllowCustomQtTypes();
+    enum TestTeam{
+        NoTeam = 0x0000,
+        WhiteTeam = 0x0001,
+        RedTeam = 0x0002,
+        BlueTeam = 0x0004,
+        PurpleTeam = RedTeam | BlueTeam
+    };
+    Q_DECLARE_FLAGS( TestTeams, TestTeam )
+    Q_FLAG( TestTeams )
 
+    TestType testType() const;
+    void setTestType(TestType newTestType);
+    TestTeam testTeam() const;
+    void setTestTeam(TestTeam newTestTeam);
 
-    void BenchmarkBindableProperties();
-    void BenchmarkNonBindableProperties();
+public slots:
+    void doStuff();
+    void doSomeStuff();
+    void doMoreStuff();
+    void doEvenMoreStuff();
+    void doLoadsaStuff();
 
 private:
-    inline void bindableCallback(){
-        qInfo() << "bindableCallback() called here:" << Q_FUNC_INFO;
-    }
+    TestType m_testType;
+    TestTeam m_testTeam;
+
+signals:
+
+    void testTypeChanged();
+    void testTeamChanged();
 };
 

@@ -56,6 +56,6 @@ void TddTestCase::NetworkTestSelectedPortsMustBeReallyFast()
     // }
 
     // // qDebug() << "Open ports (selected):" << benchmarkTest.numOpenPorts;
-    // // qDebug() << "Closed ports selected):" << benchmarkTest.numClosedPorts;
+    // // qDebug() << "Closed ports (selected):" << benchmarkTest.numClosedPorts;
 }
 

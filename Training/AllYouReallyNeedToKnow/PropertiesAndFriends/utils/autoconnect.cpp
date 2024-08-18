@@ -43,7 +43,14 @@ void AutoConnect::connect(QObject *sender, QObject *receiver)
 
 void AutoConnect::connect(const QByteArray &signal, const QByteArray &slot, QObject *sender, QObject *receiver)
 {
+    if(!sender || !receiver) return;
 
+    QList<QByteArray> senderSignals = scanType(sender,QMetaMethod::Signal);
+    QList<QByteArray> receiverSlots = scanType(receiver,QMetaMethod::Slot);
+
+    if( senderSignals.contains( signal ) && receiverSlots.contains( slot )  ){
+        QObject::connect( sender, "2"+signal, receiver, "1"+slot );
+    }
 }
 
 QList<QByteArray> AutoConnect::scanType(QObject *object, QMetaMethod::MethodType type)
