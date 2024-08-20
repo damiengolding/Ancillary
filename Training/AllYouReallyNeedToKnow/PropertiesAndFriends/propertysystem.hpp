@@ -41,14 +41,12 @@ public:
     PropertySystem();
     ~PropertySystem();
 
-
 private slots:
     void MustPrintReadableEnums();
     void MustProvideDynamicProperties();
     void MustProvideBindableProperties();
     void MustProvideAutoConnect();
     void MustAllowCustomQtTypes();
-
 
     void BenchmarkBindableProperties();
     void BenchmarkNonBindableProperties();
