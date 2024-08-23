@@ -49,7 +49,6 @@ public:
     static void multiConnect(QObject *sender, QObject *receiver)
     {
         if(!sender || !receiver) return;
-
         QList<QByteArray> senderSignals = scanType(sender,QMetaMethod::Signal);
         QList<QByteArray> receiverSlots = scanType(receiver,QMetaMethod::Slot);
         for(QByteArray signature : senderSignals){
@@ -64,7 +63,6 @@ public:
         if(!sender || !receiver) return;
         QList<QByteArray> senderSignals = scanType(sender,QMetaMethod::Signal);
         QList<QByteArray> receiverSlots = scanType(receiver,QMetaMethod::Slot);
-
         if( senderSignals.contains( signal ) && receiverSlots.contains( slot )  ){
             QObject::connect( sender, "2"+signal, receiver, "1"+slot, Qt::UniqueConnection );
         }
@@ -74,14 +72,12 @@ public:
     {
         QList<QByteArray> senderSignals;
         QList<QByteArray> receiverSlots;
-
         for( auto sender : senders ){
             if( !sender ) continue;
             senderSignals = scanType(sender,QMetaMethod::Signal);
             for( auto receiver : receivers ){
                 if( !receiver ) continue;
                 receiverSlots = scanType(receiver,QMetaMethod::Slot);
-
                 if( senderSignals.contains( signal ) && receiverSlots.contains( slot )  ){
                     multiConnect( signal, slot, sender, receiver );
                 }
@@ -94,7 +90,6 @@ private:
     {
         QList<QByteArray> list;
         if(!object) return list;
-
         const QMetaObject *mo = object->metaObject();
         if(!mo) return list;
         for(int i = mo->methodOffset(); i < mo->methodCount(); i++){
