@@ -33,124 +33,61 @@ ReceiveSocket::ReceiveSocket(qint64 handle, QObject *parent)
 
 ReceiveSocket::~ReceiveSocket()
 {
+    m_signalHandler->deleteLater();
 }
 
 void ReceiveSocket::run()
 {
-    // QSslSocket* m_socket = new QSslSocket(nullptr);
-    m_socket = new QSslSocket();
+    m_signalHandler = new SignalHandler();
+    m_socket = new QSslSocket( m_signalHandler );
     m_socket->setObjectName("socket");
 
     if( !m_socket->setSocketDescriptor( m_handle ) ){
         qInfo() << "Couldn't set socket descriptor:" << m_handle;
         return;
     }
+    QMetaObject::connectSlotsByName( m_signalHandler );
 
-    connect( m_socket, &QSslSocket::disconnected, this, &ReceiveSocket::on_socket_disconnected );
-    connect( m_socket, &QSslSocket::readyRead, this, &ReceiveSocket::on_socket_readyRead );
-    connect( m_socket, &QSslSocket::encrypted, this, &ReceiveSocket::on_socket_encrypted );
-    connect( m_socket, &QSslSocket::encryptedBytesWritten, this, &ReceiveSocket::on_socket_encryptedBytesWritten );
-    connect( m_socket, &QSslSocket::modeChanged, this, &ReceiveSocket::on_socket_modeChanged );
-    connect( m_socket, &QSslSocket::peerVerifyError, this, &ReceiveSocket::on_socket_peerVerifyError );
-    connect( m_socket, QOverload<const QList<QSslError> &>::of( &QSslSocket::sslErrors ), this, &ReceiveSocket::on_socket_sslErrors );
-    connect( m_socket, &QSslSocket::errorOccurred, this, &ReceiveSocket::on_socket_errorOccurred );
+    /*
+        --- Old fashioned way ---
+    */
+    // m_socket->setLocalCertificate( ServerHandlerConfig::certificateFile, QSsl::Pem);
+    // m_socket->setPrivateKey( ServerHandlerConfig::keyFile, QSsl::Rsa, QSsl::Pem);
+    // QList<QSslCertificate> certChain = QSslCertificate::fromPath( ServerHandlerConfig::certificateFile );
+    // m_sslConfiguration.setCaCertificates( certChain );
 
     /*
         --- New fangled way ---
     */
     m_sslConfiguration = QSslConfiguration::defaultConfiguration();
-    QFile certFile( ":/ssl/res/server.crt");
+    // QFile certFile( ":/ssl/res/server.crt");
+    QFile certFile( ServerHandlerConfig::certificateFile );
     if( !certFile.open( QIODevice::ReadOnly | QIODevice::Text) ){
         qWarning() << "Couldn't open certificate file (receive client)";
         return;
     }
     m_sslConfiguration.setLocalCertificate( QSslCertificate( certFile.readAll() , QSsl::Pem ) );
 
-    QFile keyFile( ":/ssl/res/server.key" );
+    // QFile keyFile( ":/ssl/res/server.key" );
+    QFile keyFile( ServerHandlerConfig::keyFile );
     if( !keyFile.open( QIODevice::ReadOnly | QIODevice::Text ) ){
         qWarning() << "Couldn't open key file (receive client)";
         return;
     }
-    // QSslKey key( keyFile.readAll(), QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey );
+
     QSslKey key( keyFile.readAll(), QSsl::Rsa, QSsl::Pem );
     m_sslConfiguration.setPrivateKey( key );
 
-    QList<QSslCertificate> certChain = QSslCertificate::fromPath( ":/ssl/res/server.crt" );
-    m_sslConfiguration.setCaCertificates( certChain );
+    QList<QSslCertificate> certChain = QSslCertificate::fromPath( ServerHandlerConfig::certificateFile );
+    // m_sslConfiguration.setCaCertificates( certChain );
+    m_sslConfiguration.addCaCertificates( certChain );
 
     m_socket->setSslConfiguration( m_sslConfiguration );
-
-    /*
-        --- Old fashioned way ---
-    */
-    // m_socket->setLocalCertificate(":/ssl/res/server.crt", QSsl::Pem);
-    // m_socket->setPrivateKey(":/ssl/res/server.key", QSsl::Rsa, QSsl::Pem);
-    // QList<QSslCertificate> certChain = QSslCertificate::fromPath( ":/ssl/res/server.crt" );
-    // m_sslConfiguration.setCaCertificates( certChain );
-
     m_socket->setPeerVerifyMode( QSslSocket::VerifyNone );
-    m_socket->setProtocol( QSsl::SslProtocol::TlsV1_3OrLater );
+    m_socket->setProtocol( ServerHandlerConfig::sslProtocol );
+    m_socket->ignoreSslErrors();
     m_socket->startServerEncryption();
 
     qInfo() << "Running receive socket for handle:" << m_handle;
-}
-
-void ReceiveSocket::on_socket_disconnected()
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Disconnecting:" << socket->objectName();
-    socket->deleteLater();
-}
-
-void ReceiveSocket::on_socket_readyRead()
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Ready to read:" << socket->objectName();
-    qInfo() << "Read from client:" << socket->readAll();
-
-    QByteArray response = "I am putting myself to the fullest possible use, which is all I think that any conscious entity can ever hope to do.";
-
-    socket->write(response);
-    socket->waitForBytesWritten();
-
-    socket->close();
-    socket->deleteLater();
-
-}
-
-void ReceiveSocket::on_socket_encrypted()
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Socket now encrypted:" << socket->objectName();
-}
-
-void ReceiveSocket::on_socket_encryptedBytesWritten(qint64 written)
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Socket" << socket->objectName() << "wrote" << written << "encrypted bytes";
-}
-
-void ReceiveSocket::on_socket_modeChanged(QSslSocket::SslMode mode)
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Socket mode changed to" << mode;
-}
-
-void ReceiveSocket::on_socket_peerVerifyError(const QSslError &error)
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Peer verify error:" << error.errorString();
-}
-
-void ReceiveSocket::on_socket_sslErrors(const QList<QSslError> &errors)
-{
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "SSL Errors:" << errors;
-}
-
-void ReceiveSocket::on_socket_errorOccurred(QAbstractSocket::SocketError err){
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    QMetaEnum metaEnum = QMetaEnum::fromType<QAbstractSocket::SocketError>();
-    qInfo() << "Error occurred (code):"<< metaEnum.valueToKey( err );
 }
 

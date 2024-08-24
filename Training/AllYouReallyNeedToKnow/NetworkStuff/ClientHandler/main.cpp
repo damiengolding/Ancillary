@@ -26,6 +26,8 @@ SOFTWARE.
 #include <QCommandLineParser>
 #include <QList>
 #include <QSslSocket>
+#include <QSslConfiguration>
+#include <QSslKey>
 
 #include "ClientHandlerLogger.hpp"
 #include "ClientHandlerConfig.hpp"
@@ -100,8 +102,37 @@ void processArgumentOptions(QCoreApplication &app, QCommandLineParser &parser){
 void connectToHost(){
     qInfo() << "Attempting to connect to" << hostName << "on port" << portNumber;
     QSslSocket* socket = new QSslSocket();
-    // socket->setPeerVerifyMode( QSslSocket::VerifyNone );
-    // socket->setProtocol( QSsl::SslProtocol::TlsV1_3 );
+    socket->setPeerVerifyMode( QSslSocket::VerifyNone );
+    socket->setProtocol( QSsl::SslProtocol::TlsV1_2);
+
+    QSslConfiguration m_sslConfiguration = QSslConfiguration::defaultConfiguration();
+
+    QList<QSslCertificate> cert = QSslCertificate::fromPath(":/ssl/res/SERVER-CERT.pem");
+    QFile certFile( ":/ssl/res/SERVER-CERT.pem" );
+    if( !certFile.open( QIODevice::ReadOnly | QIODevice::Text) ){
+        qWarning() << "Couldn't open certificate file";
+        return;
+    }
+    QFile keyFile( ":/ssl/res/SERVER-KEY.pem" );
+    if( !keyFile.open( QIODevice::ReadOnly | QIODevice::Text ) ){
+        qWarning() << "Couldn't open key file";
+        return;
+    }
+
+    QSslKey key( keyFile.readAll(), QSsl::Rsa, QSsl::Pem);
+    m_sslConfiguration.setPrivateKey( key );
+
+    // QSslCertificate certificate;
+    // certificate.fromPath( ":/ssl/res/SERVER-CERT.pem", QSsl::Pem);
+    // m_sslConfiguration.setLocalCertificate( certificate );
+
+    QList<QSslCertificate> certChain = QSslCertificate::fromPath( ":/ssl/res/SERVER-CERT.pem" );
+    m_sslConfiguration.addCaCertificates( certChain );
+    m_sslConfiguration.setLocalCertificate( certChain.at(0) );
+
+    socket->setSslConfiguration( m_sslConfiguration );
+    // socket->setLocalCertificate(certChain.at(0));
+    // socket->setPrivateKey(key);
     socket->connectToHostEncrypted( hostName, portNumber );
 
     if( !socket->waitForEncrypted() ){

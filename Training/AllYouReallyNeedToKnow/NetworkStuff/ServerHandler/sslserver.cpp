@@ -51,12 +51,12 @@ void SslServer::incomingConnection(qintptr handle)
 void SslServer::initConfig(){
     m_sslConfiguration = QSslConfiguration::defaultConfiguration();
 
-    QFile certFile( ":/ssl/res/server.crt");
+    QFile certFile( ServerHandlerConfig::certificateFile );
     if( !certFile.open( QIODevice::ReadOnly | QIODevice::Text) ){
         qWarning() << "Couldn't open certificate file";
         return;
     }
-    QFile keyFile( ":/ssl/res/server.key" );
+    QFile keyFile( ServerHandlerConfig::keyFile );
     if( !keyFile.open( QIODevice::ReadOnly | QIODevice::Text ) ){
         qWarning() << "Couldn't open key file";
         return;
@@ -66,8 +66,9 @@ void SslServer::initConfig(){
     m_sslConfiguration.setPrivateKey( key );
 
     QSslCertificate certificate;
-    certificate.fromPath(":/ssl/res/server.crt", QSsl::Pem);
-    QList<QSslCertificate> certChain = QSslCertificate::fromPath( ":/ssl/res/server.crt" );
+    certificate.fromPath(ServerHandlerConfig::certificateFile, QSsl::Pem);
+
+    QList<QSslCertificate> certChain = QSslCertificate::fromPath( ServerHandlerConfig::certificateFile );
     // if( certChain.empty() ){
     //     qInfo() << "certChain.empty()";
     // }
@@ -77,10 +78,18 @@ void SslServer::initConfig(){
     //     }
     // }
 
-    m_sslConfiguration.setCaCertificates( certChain );
-    m_sslConfiguration.setLocalCertificate( certificate );
-
+    m_sslConfiguration.addCaCertificates( certChain );
+    // m_sslConfiguration.setLocalCertificateChain( certChain );
+    m_sslConfiguration.setLocalCertificate( certChain.at(0) );
     m_sslConfiguration.setPeerVerifyMode( QSslSocket::VerifyNone );
-    m_sslConfiguration.setProtocol(  QSsl::SslProtocol::TlsV1_3OrLater );
+    m_sslConfiguration.setProtocol( ServerHandlerConfig::sslProtocol );
 
+    qInfo() << "Local certificate:" << m_sslConfiguration.localCertificate().issuerDisplayName();
+    for( auto certificate : m_sslConfiguration.localCertificateChain() ){
+        qInfo() << "Local certificate chain:" << certificate.issuerDisplayName() ;
+    }
+
+    // for( auto ca : m_sslConfiguration.caCertificates() ){
+    //     qInfo() << "CA:" << ca.issuerDisplayName() ;
+    // }
 }

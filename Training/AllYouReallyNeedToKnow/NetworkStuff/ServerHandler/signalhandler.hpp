@@ -29,33 +29,24 @@ SOFTWARE.
 #include <QSslSocket>
 #include <QSslServer>
 #include <QMetaEnum>
-#include <QRunnable>
 #include <QThread>
-#include <QFile>
-#include <QSslKey>
 
-#include "signalhandler.hpp"
-#include "ServerHandlerConfig.hpp"
-
-class ReceiveSocket : public QObject, public QRunnable
+class SignalHandler : public QObject
 {
     Q_OBJECT
-
 public:
-    explicit ReceiveSocket( qint64 handle, QObject *parent = nullptr);
-    ~ReceiveSocket();
+    explicit SignalHandler(QObject *parent = nullptr);
+    ~SignalHandler();
 
-signals:
+public slots:
+    void on_socket_disconnected();
+    void on_socket_readyRead();
+    void on_socket_encrypted();
+    void on_socket_encryptedBytesWritten(qint64 written);
+    void on_socket_modeChanged(QSslSocket::SslMode mode);
+    void on_socket_peerVerifyError(const QSslError &error);
+    void on_socket_sslErrors(const QList<QSslError> &errors);
+    void on_socket_errorOccurred(QAbstractSocket::SocketError err);
 
-    void socketChanged();
-
-public:
-    void run() override;
-
-private:
-    qintptr m_handle;
-    QSslSocket* m_socket;
-    SignalHandler* m_signalHandler;
-    QSslConfiguration m_sslConfiguration;
 };
 

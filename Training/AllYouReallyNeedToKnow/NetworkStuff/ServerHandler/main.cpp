@@ -44,15 +44,23 @@ qint64 portNumber = 443;
 
     /*
         --- Notes ---
-        openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes
+        openssl req -x509 -out SERVER-CERT.pem -subj "/CN=acme.com" -nodes -newkey rsa:1024 -keyout SERVER-KEY.pem
     */
 
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    ServerHandlerLogger::fileName = "ServerHandler_log.txt";
+    ServerHandlerLogger::fileName = "serverhandlerlog.txt";
     ServerHandlerLogger::install();
+
+    qInfo() << "TLS Backend:" << QSslSocket::activeBackend();
+    for( auto backend : QSslSocket::availableBackends() ){
+        qInfo() << "Available backend:" << backend;
+    }
+    ServerHandlerConfig::certificateFile = ":/ssl/res/SERVER-CERT.pem";
+    ServerHandlerConfig::keyFile = ":/ssl/res/SERVER-KEY.pem";
+    ServerHandlerConfig::sslProtocol =  QSsl::SslProtocol::TlsV1_2;
 
     QCommandLineParser p;
     initArgumentParser(a,p);

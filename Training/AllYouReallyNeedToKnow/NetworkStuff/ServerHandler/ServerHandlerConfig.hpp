@@ -26,6 +26,8 @@ SOFTWARE.
 
 #include <QObject>
 #include <QDir>
+#include <QSslSocket>
+#include <QSslServer>
 
 class ServerHandlerConfig : public QObject
 {
@@ -35,8 +37,9 @@ public:
     explicit ServerHandlerConfig(QObject *parent = nullptr);
     ~ServerHandlerConfig();
 
-    static QString userApplicationHome;
-    static QString myConfigProperty;
+    static QString certificateFile;
+    static QString keyFile;
+    static QSsl::SslProtocol sslProtocol;
 
 private:
 

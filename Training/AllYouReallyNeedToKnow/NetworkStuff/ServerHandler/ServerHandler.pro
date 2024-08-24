@@ -6,6 +6,7 @@ SOURCES += \
         ServerHandlerConfig.cpp \
         ServerHandlerLogger.cpp \
         receivesocket.cpp \
+        signalhandler.cpp \
         sslserver.cpp
 
 HEADERS += \
@@ -13,6 +14,7 @@ HEADERS += \
     ServerHandlerLogger.hpp \
     netutils.hpp \
     receivesocket.hpp \
+    signalhandler.hpp \
     sslserver.hpp
 
 DISTFILES +=

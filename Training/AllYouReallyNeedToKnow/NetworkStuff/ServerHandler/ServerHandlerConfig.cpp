@@ -24,8 +24,9 @@ SOFTWARE.
 
 #include "ServerHandlerConfig.hpp"
 
-QString ServerHandlerConfig::userApplicationHome = QDir::homePath();
-QString ServerHandlerConfig::myConfigProperty = "propertyValue";
+QString ServerHandlerConfig::certificateFile;
+QString ServerHandlerConfig::keyFile;
+QSsl::SslProtocol ServerHandlerConfig::sslProtocol = QSsl::SslProtocol::TlsV1_3;
 
 ServerHandlerConfig::ServerHandlerConfig( QObject* parent) : QObject{parent}{}
 
