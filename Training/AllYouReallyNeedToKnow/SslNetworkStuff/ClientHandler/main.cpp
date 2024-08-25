@@ -25,6 +25,7 @@ SOFTWARE.
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QList>
+#include <QTcpSocket>
 #include <QSslSocket>
 #include <QSslConfiguration>
 #include <QSslKey>
@@ -103,16 +104,20 @@ void connectToHost(){
     qInfo() << "Attempting to connect to" << hostName << "on port" << portNumber;
     QSslSocket* socket = new QSslSocket();
     socket->setPeerVerifyMode( QSslSocket::VerifyNone );
-    socket->setProtocol( QSsl::SslProtocol::TlsV1_2);
+    socket->setProtocol( QSsl::SslProtocol::AnyProtocol);
 
     QSslConfiguration m_sslConfiguration = QSslConfiguration::defaultConfiguration();
 
     QList<QSslCertificate> cert = QSslCertificate::fromPath(":/ssl/res/SERVER-CERT.pem");
+
+    // TODO remove this?
     QFile certFile( ":/ssl/res/SERVER-CERT.pem" );
     if( !certFile.open( QIODevice::ReadOnly | QIODevice::Text) ){
         qWarning() << "Couldn't open certificate file";
         return;
     }
+    certFile.close();
+
     QFile keyFile( ":/ssl/res/SERVER-KEY.pem" );
     if( !keyFile.open( QIODevice::ReadOnly | QIODevice::Text ) ){
         qWarning() << "Couldn't open key file";
@@ -121,6 +126,7 @@ void connectToHost(){
 
     QSslKey key( keyFile.readAll(), QSsl::Rsa, QSsl::Pem);
     m_sslConfiguration.setPrivateKey( key );
+    keyFile.close();
 
     // QSslCertificate certificate;
     // certificate.fromPath( ":/ssl/res/SERVER-CERT.pem", QSsl::Pem);
@@ -130,13 +136,28 @@ void connectToHost(){
     m_sslConfiguration.addCaCertificates( certChain );
     m_sslConfiguration.setLocalCertificate( certChain.at(0) );
 
-    socket->setSslConfiguration( m_sslConfiguration );
+    // socket->setSslConfiguration( m_sslConfiguration );
     // socket->setLocalCertificate(certChain.at(0));
     // socket->setPrivateKey(key);
+
+    // qInfo() << "Local certificate:" << m_sslConfiguration.localCertificate().issuerDisplayName();
+    // for( auto certificate : m_sslConfiguration.localCertificateChain() ){
+    //     qInfo() << "Local certificate chain:" << certificate.issuerDisplayName() ;
+    // }
+
     socket->connectToHostEncrypted( hostName, portNumber );
+
+    if( !socket->waitForConnected() ){
+        qWarning() << "Socket problem (waitForConnected):" << socket->errorString();
+        socket->close();
+        socket->deleteLater();
+        return;
+    }
 
     if( !socket->waitForEncrypted() ){
         qWarning() << "Socket problem (waitForEncrypted):" << socket->errorString();
+        socket->close();
+        socket->deleteLater();
         return;
     }
 
@@ -145,15 +166,21 @@ void connectToHost(){
 
     if( !socket->waitForBytesWritten() ){
         qWarning() << "Socket problem (waitForBytesWritten)" << socket->errorString();
+        socket->close();
+        socket->deleteLater();
         return;
     }
 
     if( !socket->waitForReadyRead() ){
         qWarning() << "Socket problem (waitForReadyRead)" << socket->errorString();
+        socket->close();
+        socket->deleteLater();
         return;
     }
     qInfo() << "Read from server:" << socket->readAll();
 
+    socket->close();
+    socket->deleteLater();
 }
 
 

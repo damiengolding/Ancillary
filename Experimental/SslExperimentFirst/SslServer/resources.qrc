@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/ssl">
-        <file>res/server.crt</file>
-        <file>res/server.key</file>
         <file>res/SERVER-CERT.pem</file>
         <file>res/SERVER-KEY.pem</file>
     </qresource>

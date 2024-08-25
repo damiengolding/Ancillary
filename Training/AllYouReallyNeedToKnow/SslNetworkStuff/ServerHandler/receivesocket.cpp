@@ -48,6 +48,17 @@ void ReceiveSocket::run()
     }
     QMetaObject::connectSlotsByName( m_signalHandler );
 
+    // connect( m_socket, &QSslSocket::disconnected, m_signalHandler, &SignalHandler::on_socket_disconnected );
+    // connect( m_socket, &QSslSocket::readyRead, m_signalHandler, &SignalHandler::on_socket_readyRead );
+    // connect( m_socket, &QSslSocket::encrypted, m_signalHandler, &SignalHandler::on_socket_encrypted );
+    // connect( m_socket, &QSslSocket::encryptedBytesWritten, m_signalHandler, &SignalHandler::on_socket_encryptedBytesWritten );
+    // connect( m_socket, &QSslSocket::modeChanged, m_signalHandler, &SignalHandler::on_socket_modeChanged );
+    // connect( m_socket, &QSslSocket::peerVerifyError, m_signalHandler, &SignalHandler::on_socket_peerVerifyError );
+    // connect( m_socket, &QSslSocket::errorOccurred, m_signalHandler, &SignalHandler::on_socket_errorOccurred );
+
+    // The one that dares to be different
+    connect(m_socket, QOverload<const QList<QSslError> &>::of(&QSslSocket::sslErrors), m_signalHandler, &SignalHandler::sslErrors);
+
     /*
         --- Old fashioned way ---
     */

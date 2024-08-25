@@ -28,7 +28,7 @@ SOFTWARE.
 #include <QThreadPool>
 
 SslServer::SslServer(QObject *parent)
-    : QSslServer{parent}
+    : QTcpServer{parent}
 {
   initConfig();
 }
@@ -51,11 +51,14 @@ void SslServer::incomingConnection(qintptr handle)
 void SslServer::initConfig(){
     m_sslConfiguration = QSslConfiguration::defaultConfiguration();
 
+    // TODO remove this?
     QFile certFile( ServerHandlerConfig::certificateFile );
     if( !certFile.open( QIODevice::ReadOnly | QIODevice::Text) ){
         qWarning() << "Couldn't open certificate file";
         return;
     }
+    certFile.close();
+
     QFile keyFile( ServerHandlerConfig::keyFile );
     if( !keyFile.open( QIODevice::ReadOnly | QIODevice::Text ) ){
         qWarning() << "Couldn't open key file";
@@ -64,6 +67,7 @@ void SslServer::initConfig(){
 
     QSslKey key( keyFile.readAll(), QSsl::Rsa, QSsl::Pem);
     m_sslConfiguration.setPrivateKey( key );
+    keyFile.close();
 
     QSslCertificate certificate;
     certificate.fromPath(ServerHandlerConfig::certificateFile, QSsl::Pem);
@@ -84,10 +88,10 @@ void SslServer::initConfig(){
     m_sslConfiguration.setPeerVerifyMode( QSslSocket::VerifyNone );
     m_sslConfiguration.setProtocol( ServerHandlerConfig::sslProtocol );
 
-    qInfo() << "Local certificate:" << m_sslConfiguration.localCertificate().issuerDisplayName();
-    for( auto certificate : m_sslConfiguration.localCertificateChain() ){
-        qInfo() << "Local certificate chain:" << certificate.issuerDisplayName() ;
-    }
+    // qInfo() << "Local certificate:" << m_sslConfiguration.localCertificate().issuerDisplayName();
+    // for( auto certificate : m_sslConfiguration.localCertificateChain() ){
+    //     qInfo() << "Local certificate chain:" << certificate.issuerDisplayName() ;
+    // }
 
     // for( auto ca : m_sslConfiguration.caCertificates() ){
     //     qInfo() << "CA:" << ca.issuerDisplayName() ;

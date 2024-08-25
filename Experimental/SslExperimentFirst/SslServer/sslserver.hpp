@@ -24,29 +24,37 @@ SOFTWARE.
 #pragma once
 
 #include <QObject>
-#include <QDebug>
-#include <QAbstractSocket>
+#include <QTcpServer>
 #include <QSslSocket>
-#include <QSslServer>
-#include <QMetaEnum>
-#include <QThread>
+#include <QFile>
+#include <QSslKey>
 
-class SignalHandler : public QObject
+class SslServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    explicit SignalHandler(QObject *parent = nullptr);
-    ~SignalHandler();
+    explicit SslServer(QObject *parent = nullptr);
+    ~SslServer();
 
 public slots:
-    void on_socket_disconnected();
-    void on_socket_readyRead();
-    void on_socket_encrypted();
-    void on_socket_encryptedBytesWritten(qint64 written);
-    void on_socket_modeChanged(QSslSocket::SslMode mode);
-    void on_socket_peerVerifyError(const QSslError &error);
-    void on_socket_sslErrors(const QList<QSslError> &errors);
-    void on_socket_errorOccurred(QAbstractSocket::SocketError err);
+    void disconnected();
+    void readyRead();
+    void encrypted();
+    void encryptedBytesWritten(qint64 written);
+    void modeChanged(QSslSocket::SslMode mode);
+    void peerVerifyError(const QSslError &error);
+    void errorOccurred(QAbstractSocket::SocketError err);
 
+    void sslErrors(const QList<QSslError> &errors);
+
+private: // Functions
+    void init();
+
+private: // Members
+    QSslSocket* m_server = nullptr;
+
+    // QTcpServer interface
+protected:
+    void incomingConnection(qintptr handle) override;
 };
 

@@ -47,7 +47,6 @@ qint64 portNumber = 443;
         openssl req -x509 -out SERVER-CERT.pem -subj "/CN=acme.com" -nodes -newkey rsa:1024 -keyout SERVER-KEY.pem
     */
 
-
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
@@ -60,7 +59,7 @@ int main(int argc, char *argv[])
     }
     ServerHandlerConfig::certificateFile = ":/ssl/res/SERVER-CERT.pem";
     ServerHandlerConfig::keyFile = ":/ssl/res/SERVER-KEY.pem";
-    ServerHandlerConfig::sslProtocol =  QSsl::SslProtocol::TlsV1_2;
+    ServerHandlerConfig::sslProtocol =  QSsl::SslProtocol::TlsV1_3;
 
     QCommandLineParser p;
     initArgumentParser(a,p);

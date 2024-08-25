@@ -80,7 +80,7 @@ void SignalHandler::on_socket_peerVerifyError(const QSslError &error)
     qInfo() << "Peer verify error:" << error.errorString();
 }
 
-void SignalHandler::on_socket_sslErrors(const QList<QSslError> &errors)
+void SignalHandler::sslErrors(const QList<QSslError> &errors)
 {
     QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
     qInfo() << "SSL Errors:" << errors;

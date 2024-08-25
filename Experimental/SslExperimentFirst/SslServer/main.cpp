@@ -21,36 +21,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
+#include <QCoreApplication>
+#include "sslserver.hpp"
 
-#include <QObject>
-#include <QDebug>
-#include <QAbstractSocket>
-#include <QSslSocket>
-#include <QSslServer>
-#include <QMetaEnum>
-#include <QThread>
-
-#include "receivesocket.hpp"
-
-class SslServer : public QSslServer
+int main(int argc, char *argv[])
 {
-    Q_OBJECT
-public:
-    explicit SslServer(QObject *parent = nullptr);
-    ~SslServer();
+    QCoreApplication a(argc, argv);
 
-public slots:
-    // TODO add NIC specificaction
-
-protected:
-    void incomingConnection(qintptr handle) override;
-
-private:
-    QSslServer* m_server;
-    QSslConfiguration m_sslConfiguration;
-
-private: // Functions
-    void initConfig();
-};
-
+    SslServer server;
+    server.listen( QHostAddress::Any, 443 );
+    qInfo() << "Listening on address" << QHostAddress::Any << "port 443";
+    return a.exec();
+}
