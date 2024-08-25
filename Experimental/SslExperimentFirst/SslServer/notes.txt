@@ -1,0 +1,28 @@
+1. Create certificate and key:
+openssl req -x509 -out SERVER-CERT.pem -subj "/CN=localhost" -nodes -newkey rsa:2048 -keyout SERVER-KEY.pem
+
+----- Custom SSL Server -----
+
+2. Verify certificate and key (visual inspection of decoded PEM):
+openssl x509 -in SERVER-CERT  -text -noout
+openssl rsa -in SERVER-KEY.pem -text -noout
+
+3. Validate certificate and key (compare modulus):
+openssl rsa -in SERVER-KEY.pem -noout -modulus | sha1sum
+openssl x509 -in SERVER-CERT.pem -noout -modulus | sha1sum
+
+4. Validate certificate and key (with web browser):
+N.B. The -www gives a response in HTML so the browser can display the details of the SSL exchange.
+openssl s_server -key SERVER-KEY.pem -cert SERVER-CERT.pem  -accept 443 -www
+[Open browser window]
+
+[Create server-side code]
+5. Validate certificate and key in your custom server:
+openssl s_client -connect [IP Address]:[port]
+
+----- Custom SSL Client -----
+
+[Create client-side code]
+5. Validate certificate and key in your custom server:
+N.B. Notice the absence of the -www switch.
+openssl s_server -key SERVER-KEY.pem -cert SERVER-CERT.pem  -accept 443

@@ -20,3 +20,6 @@ RESOURCES += \
 
 HEADERS += \
     sslserver.hpp
+
+DISTFILES += \
+    notes.txt

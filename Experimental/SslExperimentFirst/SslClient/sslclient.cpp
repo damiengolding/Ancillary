@@ -82,6 +82,19 @@ void SslClient::init(){
     connect( m_socket, &QSslSocket::errorOccurred, this, &SslClient::errorOccurred );
     // The one that dares to be different
     connect(m_socket, QOverload<const QList<QSslError> &>::of(&QSslSocket::sslErrors), this, &SslClient::sslErrors);
+
+    /*
+        --- Errors to ignore ---
+    */
+    QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/ssl/res/SERVER-CERT.pem");
+    QSslError selfSignedCertError( QSslError::SelfSignedCertificate, certs.at(0) );
+    QSslError hostNameMismatchError( QSslError::HostNameMismatch, certs.at(0) );
+
+    QList<QSslError> ignoreErrors;
+    ignoreErrors << selfSignedCertError << hostNameMismatchError;
+
+    m_socket->ignoreSslErrors(ignoreErrors);
+
 }
 
 #pragma  {
@@ -127,7 +140,7 @@ void SslClient::errorOccurred(QAbstractSocket::SocketError err)
 void SslClient::sslErrors(const QList<QSslError> &errors)
 {
     qInfo() << "SSL Errors:" << errors;
-    m_socket->ignoreSslErrors( errors );
+    // m_socket->ignoreSslErrors( errors );
 }
 
 #pragma Slots }
