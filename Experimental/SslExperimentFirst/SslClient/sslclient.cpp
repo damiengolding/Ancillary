@@ -101,8 +101,9 @@ void SslClient::init(){
 
 void SslClient::disconnected()
 {
-    qInfo() << "Disconnected";
+    qInfo() << "disconnected";
     m_socket->deleteLater();
+    emit complete();
 }
 
 void SslClient::readyRead()
@@ -128,19 +129,31 @@ void SslClient::modeChanged(QSslSocket::SslMode mode)
 
 void SslClient::peerVerifyError(const QSslError &error)
 {
-    qInfo() << "Peer verify error:" << error.errorString();
+    qInfo() << "peerVerifyError:" << error.errorString();
 }
 
 void SslClient::errorOccurred(QAbstractSocket::SocketError err)
 {
     QMetaEnum metaEnum = QMetaEnum::fromType<QAbstractSocket::SocketError>();
-    qInfo() << "Error occurred:"<< metaEnum.valueToKey( err );
+    qInfo() << "errorOccurred:"<< metaEnum.valueToKey( err );
 }
 
 void SslClient::sslErrors(const QList<QSslError> &errors)
 {
-    qInfo() << "SSL Errors:" << errors;
-    // m_socket->ignoreSslErrors( errors );
+    qInfo() << "sslErrors:" << errors;
+    m_socket->ignoreSslErrors( errors );
+    /*
+        --- Errors to ignore ---
+    */
+    // QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/ssl/res/SERVER-CERT.pem");
+    // QSslError selfSignedCertError( QSslError::SelfSignedCertificate, certs.at(0) );
+    // QSslError hostNameMismatchError( QSslError::HostNameMismatch, certs.at(0) );
+    // QSslError invalidPurposeError( QSslError::InvalidPurpose, certs.at(0) );
+
+    // QList<QSslError> ignoreErrors;
+    // ignoreErrors << selfSignedCertError << hostNameMismatchError << invalidPurposeError;
+
+    // m_socket->ignoreSslErrors(ignoreErrors);
 }
 
 #pragma Slots }

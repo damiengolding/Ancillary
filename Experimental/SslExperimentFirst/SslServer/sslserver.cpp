@@ -23,8 +23,6 @@ SOFTWARE.
 */
 #include "sslserver.hpp"
 
-#include <QMetaEnum>
-
 SslServer::SslServer(QObject *parent)
     : QTcpServer{parent}
 {
@@ -104,7 +102,6 @@ void SslServer::init()
 void SslServer::disconnected()
 {
     qInfo() << "Disconnected";
-    // m_server->close();
     m_server->deleteLater();
 }
 

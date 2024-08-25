@@ -28,6 +28,7 @@ SOFTWARE.
 #include <QSslSocket>
 #include <QFile>
 #include <QSslKey>
+#include <QMetaEnum>
 
 class SslServer : public QTcpServer
 {

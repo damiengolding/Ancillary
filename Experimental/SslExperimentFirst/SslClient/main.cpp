@@ -24,12 +24,21 @@ SOFTWARE.
 #include <QCoreApplication>
 #include "sslclient.hpp"
 
+void complete();
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
     SslClient* client = new SslClient();
+    QObject::connect(client, &SslClient::complete, complete);
     client->connectHost("127.0.0.1", 443);
 
     return a.exec();
+}
+
+void complete(){
+    qInfo() << "Request/response completed.";
+    qInfo() << "Exiting.";
+    QCoreApplication::exit(0);
 }

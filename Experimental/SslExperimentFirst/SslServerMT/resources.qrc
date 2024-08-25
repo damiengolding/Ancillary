@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/ssl">
+        <file>res/SERVER-CERT.pem</file>
+        <file>res/SERVER-KEY.pem</file>
+    </qresource>
+</RCC>

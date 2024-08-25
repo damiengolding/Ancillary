@@ -21,37 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
+#include <QCoreApplication>
+#include "sslserver.hpp"
 
-#include <QObject>
-#include <QSslSocket>
-#include <QFile>
-
-class SslClient : public QObject
+int main(int argc, char *argv[])
 {
-    Q_OBJECT
-public:
-    explicit SslClient(QObject *parent = nullptr);
-    ~SslClient();
-
-    void connectHost( const QString& ipAddress, qint64 port );
-
-signals:
-    void complete();
-
-public slots:
-    void disconnected();
-    void readyRead();
-    void encrypted();
-    void encryptedBytesWritten(qint64 written);
-    void modeChanged(QSslSocket::SslMode mode);
-    void peerVerifyError(const QSslError &error);
-    void errorOccurred(QAbstractSocket::SocketError err);
-
-    void sslErrors(const QList<QSslError> &errors);
-
-private:
-    void init();
-    QSslSocket* m_socket = nullptr;
-};
-
+    QCoreApplication a(argc, argv);
+    SslServer server;
+    server.listen( QHostAddress::Any, 443 );
+    qInfo() << "Listening on address" << QHostAddress::Any << "port 443";
+    return a.exec();
+}

@@ -24,34 +24,29 @@ SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include <QTcpServer>
 #include <QSslSocket>
 #include <QFile>
+#include <QSslKey>
+#include <QMetaEnum>
 
-class SslClient : public QObject
+#include <QRunnable>
+#include <QThread>
+#include <QThreadPool>
+
+#include "receivesocket.hpp"
+
+class SslServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    explicit SslClient(QObject *parent = nullptr);
-    ~SslClient();
-
-    void connectHost( const QString& ipAddress, qint64 port );
+    explicit SslServer(QObject *parent = nullptr);
+    ~SslServer();
 
 signals:
-    void complete();
 
-public slots:
-    void disconnected();
-    void readyRead();
-    void encrypted();
-    void encryptedBytesWritten(qint64 written);
-    void modeChanged(QSslSocket::SslMode mode);
-    void peerVerifyError(const QSslError &error);
-    void errorOccurred(QAbstractSocket::SocketError err);
 
-    void sslErrors(const QList<QSslError> &errors);
-
-private:
-    void init();
-    QSslSocket* m_socket = nullptr;
+protected:
+    void incomingConnection(qintptr handle) override;
 };
 

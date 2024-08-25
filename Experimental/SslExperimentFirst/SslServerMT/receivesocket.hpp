@@ -24,20 +24,21 @@ SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include <QObject>
 #include <QSslSocket>
 #include <QFile>
+#include <QSslKey>
+#include <QMetaEnum>
+#include <QRunnable>
+#include <QThread>
 
-class SslClient : public QObject
+class ReceiveSocket : public QObject, public QRunnable
 {
     Q_OBJECT
+
 public:
-    explicit SslClient(QObject *parent = nullptr);
-    ~SslClient();
-
-    void connectHost( const QString& ipAddress, qint64 port );
-
-signals:
-    void complete();
+    explicit ReceiveSocket(qintptr handle, QObject *parent = nullptr);
+    ~ReceiveSocket();
 
 public slots:
     void disconnected();
@@ -50,8 +51,16 @@ public slots:
 
     void sslErrors(const QList<QSslError> &errors);
 
+signals:
+
+    void socketChanged();
+
+public:
+    void run() override;
+
 private:
     void init();
+    qintptr m_handle;
     QSslSocket* m_socket = nullptr;
 };
 

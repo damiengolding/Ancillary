@@ -3,4 +3,5 @@ CONFIG += ordered
 
 SUBDIRS += \
     SslClient \
-    SslServer
+    SslServer \
+    SslServerMT

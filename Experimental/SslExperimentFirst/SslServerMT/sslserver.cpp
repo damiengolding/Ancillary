@@ -21,37 +21,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
+#include "sslserver.hpp"
 
-#include <QObject>
-#include <QSslSocket>
-#include <QFile>
-
-class SslClient : public QObject
+SslServer::SslServer(QObject *parent)
+    : QTcpServer{parent}
 {
-    Q_OBJECT
-public:
-    explicit SslClient(QObject *parent = nullptr);
-    ~SslClient();
 
-    void connectHost( const QString& ipAddress, qint64 port );
+}
 
-signals:
-    void complete();
+SslServer::~SslServer()
+{
 
-public slots:
-    void disconnected();
-    void readyRead();
-    void encrypted();
-    void encryptedBytesWritten(qint64 written);
-    void modeChanged(QSslSocket::SslMode mode);
-    void peerVerifyError(const QSslError &error);
-    void errorOccurred(QAbstractSocket::SocketError err);
+}
 
-    void sslErrors(const QList<QSslError> &errors);
-
-private:
-    void init();
-    QSslSocket* m_socket = nullptr;
-};
-
+void SslServer::incomingConnection(qintptr handle)
+{
+    ReceiveSocket* receiveSocket = new ReceiveSocket( handle );
+    QThreadPool* pool = QThreadPool::globalInstance();
+    pool->start( receiveSocket );
+    receiveSocket->setAutoDelete(true);
+}
