@@ -9,6 +9,7 @@ CONFIG += c++20 cmdline warn_off
 SOURCES += \
         main.cpp \
         receivesocket.cpp \
+        signalhandler.cpp \
         sslserver.cpp
 
 # Default rules for deployment.
@@ -21,4 +22,5 @@ RESOURCES += \
 
 HEADERS += \
     receivesocket.hpp \
+    signalhandler.hpp \
     sslserver.hpp

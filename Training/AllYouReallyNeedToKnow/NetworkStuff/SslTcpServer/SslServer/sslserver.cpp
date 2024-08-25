@@ -55,7 +55,7 @@ void SslServer::init()
     QByteArray key;
     QByteArray cert;
 
-    QFile file_key(":/ssl/res/SERVER-KEY.pem");
+    QFile file_key(":/res/SERVER-KEY.pem");
     if(file_key.open(QIODevice::ReadOnly)) {
         key = file_key.readAll();
         file_key.close();
@@ -64,7 +64,7 @@ void SslServer::init()
         qDebug() << file_key.errorString();
     }
 
-    QFile file_cert(":/ssl/res/SERVER-CERT.pem");
+    QFile file_cert(":/res/SERVER-CERT.pem");
     if(file_cert.open(QIODevice::ReadOnly)){
         cert = file_cert.readAll();
         file_cert.close();

@@ -21,14 +21,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#pragma once
 
-#include "ServerHandlerConfig.hpp"
+#include <QObject>
+#include <QSslSocket>
 
-QString ServerHandlerConfig::certificateFile;
-QString ServerHandlerConfig::keyFile;
-QSsl::SslProtocol ServerHandlerConfig::sslProtocol = QSsl::SslProtocol::TlsV1_3;
+class SignalHandler : public QObject
+{
+    Q_OBJECT
+public:
+    explicit SignalHandler(QObject *parent = nullptr);
+    ~SignalHandler();
 
-ServerHandlerConfig::ServerHandlerConfig( QObject* parent) : QObject{parent}{}
+public slots:
+    void on_socket_disconnected();
+    void on_socket_readyRead();
+    void on_socket_encrypted();
+    void on_socket_encryptedBytesWritten(qint64 written);
+    void on_socket_modeChanged(QSslSocket::SslMode mode);
+    void on_socket_peerVerifyError(const QSslError &error);
+    void on_socket_errorOccurred(QAbstractSocket::SocketError err);
 
+    void sslErrors(const QList<QSslError> &errors);
 
-ServerHandlerConfig::~ServerHandlerConfig(){}
+};
+

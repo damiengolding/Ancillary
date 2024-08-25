@@ -54,7 +54,7 @@ void SslClient::init(){
     */
     QByteArray cert;
 
-    QFile file_cert(":/ssl/res/SERVER-CERT.pem");
+    QFile file_cert(":/res/SERVER-CERT.pem");
     if(file_cert.open(QIODevice::ReadOnly)){
         cert = file_cert.readAll();
         file_cert.close();
@@ -69,6 +69,8 @@ void SslClient::init(){
     QSslConfiguration conf;
     conf.setCaCertificates(listCA);
     m_socket->setSslConfiguration(conf);
+
+    m_socket->setProtocol(QSsl::SecureProtocols);
 
     /*
         --- Connections ---
@@ -86,7 +88,7 @@ void SslClient::init(){
     /*
         --- Errors to ignore ---
     */
-    QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/ssl/res/SERVER-CERT.pem");
+    QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/res/SERVER-CERT.pem");
     QSslError selfSignedCertError( QSslError::SelfSignedCertificate, certs.at(0) );
     QSslError hostNameMismatchError( QSslError::HostNameMismatch, certs.at(0) );
 
@@ -145,7 +147,7 @@ void SslClient::sslErrors(const QList<QSslError> &errors)
     /*
         --- Errors to ignore ---
     */
-    // QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/ssl/res/SERVER-CERT.pem");
+    // QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/res/SERVER-CERT.pem");
     // QSslError selfSignedCertError( QSslError::SelfSignedCertificate, certs.at(0) );
     // QSslError hostNameMismatchError( QSslError::HostNameMismatch, certs.at(0) );
     // QSslError invalidPurposeError( QSslError::InvalidPurpose, certs.at(0) );

@@ -21,32 +21,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
+#include "sslserver.hpp"
 
-#include <QObject>
-#include <QTcpServer>
-#include <QSslSocket>
-#include <QFile>
-#include <QSslKey>
-#include <QMetaEnum>
-
-#include <QRunnable>
-#include <QThread>
-#include <QThreadPool>
-
-#include "receivesocket.hpp"
-
-class SslServer : public QTcpServer
+SslServer::SslServer(QObject *parent)
+    : QTcpServer{parent}
 {
-    Q_OBJECT
-public:
-    explicit SslServer(QObject *parent = nullptr);
-    ~SslServer();
 
-signals:
+}
 
+SslServer::~SslServer()
+{
 
-protected:
-    void incomingConnection(qintptr handle) override;
-};
+}
 
+void SslServer::incomingConnection(qintptr handle)
+{
+    ReceiveSocket* receiveSocket = new ReceiveSocket( handle );
+    QThreadPool* pool = QThreadPool::globalInstance();
+    qInfo() << "Starting ReceiveSocket in thread:" << QThread::currentThread();
+    pool->start( receiveSocket );
+    receiveSocket->setAutoDelete(true);
+}

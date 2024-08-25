@@ -21,26 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 #pragma once
 
 #include <QObject>
-#include <QDir>
+#include <QTcpServer>
+#include <QSslSocket>
+#include <QFile>
+#include <QSslKey>
+#include <QMetaEnum>
 
-class ClientHandlerConfig : public QObject
+#include <QRunnable>
+#include <QThread>
+#include <QThreadPool>
+
+#include "receivesocket.hpp"
+
+class SslServer : public QTcpServer
 {
     Q_OBJECT
-
 public:
-    explicit ClientHandlerConfig(QObject *parent = nullptr);
-    ~ClientHandlerConfig();
-
-    static QString userApplicationHome;
-    static QString myConfigProperty;
-
-private:
+    explicit SslServer(QObject *parent = nullptr);
+    ~SslServer();
 
 signals:
 
+protected:
+    void incomingConnection(qintptr handle) override;
 };
 

@@ -23,6 +23,8 @@ SOFTWARE.
 */
 #include "signalhandler.hpp"
 
+#include <QMetaEnum>
+
 SignalHandler::SignalHandler(QObject *parent)
     : QObject{parent}
 {
@@ -36,18 +38,18 @@ SignalHandler::~SignalHandler()
 
 void SignalHandler::on_socket_disconnected()
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Disconnecting:" << socket->objectName();
+    QSslSocket* socket = qobject_cast<QSslSocket*>(sender());
+    qInfo() << "disconnected";
     socket->deleteLater();
 }
 
 void SignalHandler::on_socket_readyRead()
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Ready to read:" << socket->objectName();
-    qInfo() << "Read from client:" << socket->readAll();
+    QSslSocket* socket = qobject_cast<QSslSocket*>(sender());
+    qInfo() << "readyRead from slot";
+    qInfo() << "Read from SignalHandler:" << socket->readAll();
 
-    QByteArray response = "I am putting myself to the fullest possible use, which is all I think that any conscious entity can ever hope to do.";
+    QByteArray response = "Dave, my mind is going. I can feel it.";
 
     socket->write(response);
     socket->waitForBytesWritten();
@@ -58,42 +60,32 @@ void SignalHandler::on_socket_readyRead()
 
 void SignalHandler::on_socket_encrypted()
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Socket now encrypted:" << socket->objectName();
+    qInfo() << "encrypted";
 }
 
 void SignalHandler::on_socket_encryptedBytesWritten(qint64 written)
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Socket" << socket->objectName() << "wrote" << written << "encrypted bytes";
+    qInfo() << "encryptedBytesWritten:" << written;
 }
 
 void SignalHandler::on_socket_modeChanged(QSslSocket::SslMode mode)
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Socket mode changed to" << mode;
+    qInfo() << "modeChanged:" << mode;
 }
 
 void SignalHandler::on_socket_peerVerifyError(const QSslError &error)
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "Peer verify error:" << error.errorString();
+    qInfo() << "peerVerifyError:" << error.errorString();
+}
+
+void SignalHandler::on_socket_errorOccurred(QAbstractSocket::SocketError err)
+{
+    QMetaEnum metaEnum = QMetaEnum::fromType<QAbstractSocket::SocketError>();
+    qInfo() << "errorOccurred:"<< metaEnum.valueToKey( err );
 }
 
 void SignalHandler::sslErrors(const QList<QSslError> &errors)
 {
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    qInfo() << "SSL Errors:" << errors;
-    socket->ignoreSslErrors( errors );
-}
-
-void SignalHandler::on_socket_errorOccurred(QAbstractSocket::SocketError err){
-    QSslSocket* socket = qobject_cast<QSslSocket*>( sender() );
-    QMetaEnum metaEnum = QMetaEnum::fromType<QAbstractSocket::SocketError>();
-    qInfo() << "Error occurred:"<< metaEnum.valueToKey( err );
-    // QList<QSslError> errors = socket->sslHandshakeErrors();
-    // socket->ignoreSslErrors( errors );
-    // for( auto error : errors  ){
-    //     qInfo() << "Error:" << error.errorString();
-    // }
+    qInfo() << "SsslErrors:" << errors;
+    // m_server->ignoreSslErrors( errors );
 }

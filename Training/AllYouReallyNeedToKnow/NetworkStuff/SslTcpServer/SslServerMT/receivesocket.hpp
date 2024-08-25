@@ -24,38 +24,34 @@ SOFTWARE.
 #pragma once
 
 #include <QObject>
-#include <QDebug>
-#include <QAbstractSocket>
+#include <QObject>
 #include <QSslSocket>
-#include <QSslServer>
+#include <QFile>
+#include <QSslKey>
 #include <QMetaEnum>
 #include <QRunnable>
 #include <QThread>
-#include <QFile>
-#include <QSslKey>
 
 #include "signalhandler.hpp"
-#include "ServerHandlerConfig.hpp"
 
 class ReceiveSocket : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
-    explicit ReceiveSocket( qint64 handle, QObject *parent = nullptr);
+    explicit ReceiveSocket(qintptr handle, QObject *parent = nullptr);
     ~ReceiveSocket();
 
 signals:
-
     void socketChanged();
 
 public:
     void run() override;
 
 private:
+    void init();
     qintptr m_handle;
-    QSslSocket* m_socket;
-    SignalHandler* m_signalHandler;
-    QSslConfiguration m_sslConfiguration;
+    QSslSocket* m_socket = nullptr;
+    SignalHandler* m_handler = nullptr;
 };
 
