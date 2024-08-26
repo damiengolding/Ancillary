@@ -28,6 +28,7 @@ SOFTWARE.
 #include <QSslKey>
 #include <QFile>
 #include <QString>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {
@@ -62,6 +63,107 @@ int main(int argc, char *argv[])
     httpServer.route("/qotd", []() {
         return "I am putting myself to the fullest possible use, which is all I think that any conscious entity can ever hope to do.";
     });
+
+    httpServer.route("/upload", [](const QHttpServerRequest &request) {
+        QString requestedFile;
+        QList< std::pair<QString, QString> > items = request.query().queryItems();
+        for( auto item :  items ){
+            // qInfo() << "Query name:" << item.first << "query value:" << item.second;
+            if( item.first.toLower() == "file"  ){
+                requestedFile = item.second;
+            }
+        }
+
+        if( requestedFile.isEmpty() ){
+            qInfo() << "Bad request";
+            return( QHttpServerResponse( QHttpServerResponder::StatusCode::BadRequest ) );
+        }
+        else{
+            QString fileLocation = "./Source" % QDir::separator() % requestedFile;
+            QFileInfo fileInfo( fileLocation );
+            qInfo() << "File absolute path:" << fileInfo.absoluteFilePath();
+
+            if( !QFileInfo::exists( fileLocation ) ){
+                qInfo() << "Not found";
+                return( QHttpServerResponse( QHttpServerResponder::StatusCode::NotFound ) );
+            }
+            else{
+                qInfo() << "OK";
+                return( QHttpServerResponse::fromFile( fileLocation ) );
+            }
+        }
+
+    });
+
+    httpServer.route("/download", QHttpServerRequest::Method::Get, [](const QHttpServerRequest &request) {
+        qInfo() << "Download for method:" << request.method();
+        return("GET method is not supported on this route");
+    });
+
+    httpServer.route("/download", QHttpServerRequest::Method::Post, []( const QHttpServerRequest &request) {
+        qInfo() << "Download for method:" << request.method();
+        QString fileName;
+
+        for( auto header : request.headers() ){
+            qInfo() << "Header name:" << header.first << "value:" << header.second;
+            if( header.first == "File-Name" ){
+                fileName = header.second;
+            }
+        }
+
+        qInfo() << "File name:"<<fileName;
+        QString saveFileName = "./Download" % QDir::separator() % fileName;
+        QFileInfo fileInfo(saveFileName);
+        QFile outputFile( fileInfo.absoluteFilePath() );
+        if( !outputFile.open( QIODevice::WriteOnly ) ){
+            QString errorMessage = "Couldn't open " % fileInfo.absoluteFilePath() % "for writing";
+            qInfo() <<  errorMessage;
+            return(errorMessage);
+        }
+        QDataStream stream( &outputFile );
+        QByteArray data = request.body();
+        stream << data;
+        outputFile.flush();
+        outputFile.close();
+
+        QString message = "Called download for POST: file saved locally to: " % fileInfo.absoluteFilePath();
+        return( message );
+    });
+
+    httpServer.route("/download", QHttpServerRequest::Method::Put, []( const QHttpServerRequest &request) {
+        qInfo() << "Download for method:" << request.method();
+        QString fileName;
+
+        for( auto header : request.headers() ){
+            qInfo() << "Header name:" << header.first << "value:" << header.second;
+            if( header.first == "File-Name" ){
+                fileName = header.second;
+            }
+        }
+
+        qInfo() << "File name:"<<fileName;
+        QString saveFileName = "./Download" % QDir::separator() % fileName;
+        QFileInfo fileInfo(saveFileName);
+        QFile outputFile( fileInfo.absoluteFilePath() );
+        if( !outputFile.open( QIODevice::WriteOnly ) ){
+            QString errorMessage = "Couldn't open " % fileInfo.absoluteFilePath() % "for writing";
+            qInfo() <<  errorMessage;
+            return(errorMessage);
+        }
+        QDataStream stream( &outputFile );
+        QByteArray data = request.body();
+        stream << data;
+        outputFile.flush();
+        outputFile.close();
+
+        QString message = "Called download for PUT: file saved locally to: " % fileInfo.absoluteFilePath();
+        return( message );
+    });
+
+    // httpServer.route("/download", QHttpServerRequest::Method::AnyKnown, []( const QHttpServerRequest &request) {
+    //     qInfo() << "Download for method:" << request.method();
+    //     return("Called download for QHttpServerRequest::Method::AnyKnown");
+    // });
 
     /*
         --- Server initialisation ---

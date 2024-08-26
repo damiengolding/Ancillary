@@ -52,22 +52,24 @@ void SslClient::init(){
     /*
         --- Certificate ---
     */
-    QByteArray cert;
+    QByteArray certBytes;
 
-    QFile file_cert(":/res/SERVER-CERT.pem");
-    if(file_cert.open(QIODevice::ReadOnly)){
-        cert = file_cert.readAll();
-        file_cert.close();
+    QFile certFile(":/res/SERVER-CERT.pem");
+    if(certFile.open(QIODevice::ReadOnly)){
+        certBytes = certFile.readAll();
+        certFile.close();
     }
     else{
-        qDebug() << file_cert.errorString();
+        qDebug() << certFile.errorString();
     }
-    QSslCertificate ssl_cert(cert);
+    QSslCertificate sslCert(certBytes);
 
-    QList<QSslCertificate> listCA;
-    listCA.append(ssl_cert);
+    // QSslCertificate sslCert = QSslCertificate::fromPath( ":/res/SERVER-CERT.pem" ).first();
+
+    QList<QSslCertificate> certificateList;
+    certificateList.append(sslCert);
     QSslConfiguration conf;
-    conf.setCaCertificates(listCA);
+    conf.setCaCertificates(certificateList);
     m_socket->setSslConfiguration(conf);
 
     m_socket->setProtocol(QSsl::SecureProtocols);

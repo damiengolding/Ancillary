@@ -34,18 +34,33 @@ void HttpClient::init(){
     /*
         --- SSL Configuration ---
     */
+    // QByteArray certBytes;
 
+    // QFile certFile(":/res/SERVER-CERT.pem");
+    // if(certFile.open(QIODevice::ReadOnly)){
+    //     certBytes = certFile.readAll();
+    //     certFile.close();
+    // }
+    // else{
+    //     qDebug() << certFile.errorString();
+    // }
+    // QSslCertificate sslCert(certBytes);
+
+    QSslCertificate sslCert = QSslCertificate::fromPath( ":/res/SERVER-CERT.pem" ).first();
+
+    QList<QSslCertificate> certificateList;
+    certificateList.append(sslCert);
+    m_config.setCaCertificates(certificateList);
 
     /*
-        --- Connections ---
+        --- QNetworkAccessManager connections ---
     */
-
-    connect(m_manager,&QNetworkAccessManager::authenticationRequired,this,&HttpClient::authenticationRequired);
-    connect(m_manager,&QNetworkAccessManager::encrypted,this,&HttpClient::encrypted);
-    connect(m_manager,&QNetworkAccessManager::preSharedKeyAuthenticationRequired,this,&HttpClient::preSharedKeyAuthenticationRequired);
-    connect(m_manager,&QNetworkAccessManager::proxyAuthenticationRequired,this,&HttpClient::proxyAuthenticationRequired);
-    connect(m_manager,&QNetworkAccessManager::sslErrors,this,&HttpClient::sslErrors);
-    connect(m_manager,&QNetworkAccessManager::finished,this,&HttpClient::finished);
+    connect(m_manager, &QNetworkAccessManager::authenticationRequired, this, &HttpClient::authenticationRequired);
+    connect(m_manager, &QNetworkAccessManager::encrypted ,this, &HttpClient::encrypted);
+    connect(m_manager, &QNetworkAccessManager::preSharedKeyAuthenticationRequired, this, &HttpClient::preSharedKeyAuthenticationRequired);
+    connect(m_manager, &QNetworkAccessManager::proxyAuthenticationRequired, this, &HttpClient::proxyAuthenticationRequired);
+    connect(m_manager, &QNetworkAccessManager::sslErrors, this, &HttpClient::sslErrors);
+    connect(m_manager, &QNetworkAccessManager::finished, this, &HttpClient::finished);
 
 }
 
@@ -57,26 +72,177 @@ HttpClient::~HttpClient()
 void HttpClient::get()
 {
     qInfo() << "Testing get verb";
-    QString url = "https://127.0.0.1";
-    QNetworkReply* reply = m_manager->get( QNetworkRequest( QUrl( url ) )  );
+    // QString url = "https://127.0.0.1/upload?file=handbook.pdf";
+    // lastFileRequest = "handbook.pdf";
+
+    // QString url = "https://127.0.0.1/upload?file=notes.txt";
+    // lastFileRequest = "notes.txt";
+
+    // QString url = "https://127.0.0.1/upload?file=style_guide_color.docx";
+    // lastFileRequest = "style_guide_color.docx";
+
+    QString url = "https://127.0.0.1/upload?file=source.zip";
+    lastFileRequest = "source.zip";
+
+    // QNetworkReply* reply = m_manager->get( QNetworkRequest( QUrl( url ) ) );
+
+    QNetworkRequest request;
+    request.setUrl( QUrl( url ) );
+    request.setSslConfiguration( m_config );
+    QNetworkReply* reply = m_manager->get( request );
+
+    connect( reply, &QNetworkReply::errorOccurred, this, &HttpClient::errorOccurred );
+    // connect( reply, &QNetworkReply::readyRead, this, &HttpClient::readyRead );
+}
+
+void HttpClient::post()
+{
+    qInfo() << "Testing post verb";
+    QString url = "https://127.0.0.1/download";
+    QFileInfo fileInfo( "./Source/source.zip" );
+    if( !fileInfo.exists() ){
+        qInfo() << "File"<< fileInfo.absoluteFilePath()<<"doesn't exist";
+        return;
+    }
+    QFile postFile( fileInfo.absoluteFilePath() );
+    if( !postFile.open( QIODevice::ReadOnly )  ){
+        qInfo() << "Couldn't open POST file for reading";
+        return;
+    }
+    QByteArray data = postFile.readAll();
+    postFile.close();
+
+    // QNetworkReply* reply = m_manager->post( QNetworkRequest( QUrl( url ) ), data );
+
+    QNetworkRequest request;
+    request.setUrl( QUrl( url ) );
+    request.setSslConfiguration( m_config );
+    request.setHeader( QNetworkRequest::ContentTypeHeader, "multipart/x-zip" );
+    request.setRawHeader("File-Name", "source.zip");
+    QNetworkReply* reply = m_manager->post( request, data );
+
     connect( reply, &QNetworkReply::readyRead, this, &HttpClient::readyRead );
+    connect( reply, &QNetworkReply::errorOccurred, this, &HttpClient::errorOccurred );
+    connect( reply, &QNetworkReply::finished, this, &HttpClient::replyFinished );
 }
 
 void HttpClient::put()
 {
     qInfo() << "Testing put verb";
+    QString url = "https://127.0.0.1/download";
+    QFileInfo fileInfo( "./Source/source.zip" );
+    if( !fileInfo.exists() ){
+        qInfo() << "File"<< fileInfo.absoluteFilePath()<<"doesn't exist";
+        return;
+    }
+    // qInfo() << "PUT file"<<fileInfo.absoluteFilePath();
+    QFile putFile( fileInfo.absoluteFilePath() );
+    if( !putFile.open( QIODevice::ReadOnly )  ){
+        qInfo() << "Couldn't open PUT file for reading";
+        return;
+    }
+
+    QByteArray data = putFile.readAll();
+    putFile.close();
+
+    // QNetworkReply* reply = m_manager->put( QNetworkRequest( QUrl( url ) ), data );
+
+    QNetworkRequest request;
+    request.setUrl( QUrl( url ) );
+    request.setSslConfiguration( m_config );
+    request.setHeader( QNetworkRequest::ContentTypeHeader, "application/zip" );
+    request.setRawHeader("File-Name", "source.zip");
+    QNetworkReply* reply = m_manager->put( request, data );
+
+    connect( reply, &QNetworkReply::readyRead, this, &HttpClient::readyRead );
+    connect( reply, &QNetworkReply::errorOccurred, this, &HttpClient::errorOccurred );
 }
 
-void HttpClient::post()
+void HttpClient::getResponse(QNetworkReply *reply)
 {
-    qInfo() << "Testing put verb";
+    qInfo() << "GET response";
+    qInfo() << "Headers:";
+    qint64 contentLength = -1;
+    for( auto pair : reply->rawHeaderPairs() ){
+        qInfo() << "Header:" << pair.first << "Value:" << pair.second;
+        if( pair.first == "Content-Length" ){
+            contentLength = QString( pair.second ).toInt();
+            qInfo() << "Length:" << contentLength;
+        }
+    }
+    qInfo() << "lastFileRequest:"<<lastFileRequest;
+    QByteArray fileContents = reply->readAll();
+    QString fileLocation = "./Upload" % QDir::separator() % lastFileRequest;
+    QFileInfo fileInfo( fileLocation );
+    QFile downloadFile( fileInfo.absoluteFilePath() );
+    if( !downloadFile.open( QIODevice::WriteOnly  )  ){
+        qInfo() << "Couldn't open"<< fileInfo.absoluteFilePath() << "for writing";
+        return;
+    }
+    QDataStream outputStream(&downloadFile);
+    outputStream << fileContents;
+    downloadFile.flush();
+    downloadFile.close();
 }
+
+void HttpClient::putResponse(QNetworkReply *reply)
+{
+    qInfo() << "PUT response";
+    qInfo() << "Reply payload:" << reply->readAll();
+}
+
+void HttpClient::postResponse(QNetworkReply *reply)
+{
+    qInfo() << "POST response";
+    qInfo() << "Reply payload:" << reply->readAll();
+}
+
+#pragma QNetworkReply slots {
+
+void HttpClient::errorOccurred(QNetworkReply::NetworkError code){
+    qInfo() << "QNetworkReply error";
+}
+
+void HttpClient::replyFinished(){
+    qInfo() << "QNetworkReply finished";
+}
+
+#pragma QNetworkReply slots }
+
+#pragma QNetworkAccessManager slots {
 
 void HttpClient::readyRead()
 {
     qInfo() << "readyRead";
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    qInfo() << "Reply:" << reply->readAll();
+}
+
+void HttpClient::finished(QNetworkReply *reply)
+{
+    qInfo() << "finished";
+    qInfo() << "Response status code:" << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    QNetworkAccessManager::Operation operation = reply->operation();
+
+    switch( operation ){
+    case 2:{
+        qInfo() << "GET response";
+        getResponse(reply);
+        break;
+    }
+    case 3:{
+        qInfo() << "PUT response";
+        putResponse(reply);
+        break;
+    }
+    case 4:{
+        qInfo() << "POST response";
+        postResponse(reply);
+        break;
+    }
+
+    }
+
+    reply->deleteLater();
+    emit complete();
 }
 
 void HttpClient::authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator)
@@ -87,13 +253,6 @@ void HttpClient::authenticationRequired(QNetworkReply *reply, QAuthenticator *au
 void HttpClient::encrypted(QNetworkReply *reply)
 {
     qInfo() << "encrypted";
-}
-
-void HttpClient::finished(QNetworkReply *reply)
-{
-    qInfo() << "finished";
-    reply->deleteLater();
-    emit complete();
 }
 
 void HttpClient::preSharedKeyAuthenticationRequired(QNetworkReply *reply, QSslPreSharedKeyAuthenticator *authenticator)
@@ -111,6 +270,8 @@ void HttpClient::sslErrors(QNetworkReply *reply, const QList<QSslError> &errors)
     qInfo() << "sslErrors" << errors;
     reply->ignoreSslErrors();
 }
+
+#pragma QNetworkAccessManager slots }
 
 #pragma Accessors and mutators {
 

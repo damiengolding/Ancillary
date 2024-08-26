@@ -24,11 +24,17 @@ SOFTWARE.
 #pragma once
 
 #include <QObject>
+#include <QDebug>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkReply>
 #include <QNetworkCookie>
 #include <QSslConfiguration>
+#include <QFile>
+#include <QDir>
+#include <QDataStream>
+#include <QHttpMultiPart>
+#include <QMetaEnum>
 
 class HttpClient : public QObject
 {
@@ -51,7 +57,16 @@ public slots:
     void get();
     void put();
     void post();
-    // Connections
+
+    void getResponse(QNetworkReply *reply);
+    void putResponse(QNetworkReply *reply);
+    void postResponse(QNetworkReply *reply);
+
+    // QNetworkReply connections
+    void errorOccurred(QNetworkReply::NetworkError code);
+    void replyFinished();
+
+    // QNetworkAccessManager connections
     void readyRead();
     void authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator);
     void encrypted(QNetworkReply *reply);
@@ -60,11 +75,16 @@ public slots:
     void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
     void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
 
-private:
+private: // Members
     QNetworkAccessManager* m_manager = nullptr;
     QString m_ipAddress = "127.0.0.1";
     qint64 m_portNumber = 443;
     QSslConfiguration m_config;
+
+    QString lastFileRequest = "";
+
+private: // Functions
+    void init();
 
 signals:
     void complete();

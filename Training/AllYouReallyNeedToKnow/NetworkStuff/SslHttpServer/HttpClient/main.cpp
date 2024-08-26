@@ -31,7 +31,9 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     HttpClient* client = new HttpClient();
     QObject::connect(client, &HttpClient::complete, complete );
-    client->get();
+    // client->get();
+    client->post();
+    // client->put();
     return a.exec();
 }
 
