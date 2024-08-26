@@ -50,7 +50,7 @@ void SslClient::init(){
     m_socket = new QSslSocket(this);
 
     /*
-        --- Certificate and key ---
+        --- Certificate ---
     */
     QByteArray cert;
 

@@ -22,51 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include <QCoreApplication>
-#include <QHttpServer>
-#include <QHttpServerResponse>
-#include <QSslCertificate>
-#include <QSslKey>
-#include <QFile>
-#include <QString>
+#include "httpclient.hpp"
+
+void complete();
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    QHttpServer httpServer;
-
-    /*
-        --- Certificate and key ---
-    */
-    QList<QSslCertificate> certificateChain = QSslCertificate::fromPath(":/res/SERVER-CERT.pem");
-    if( certificateChain.empty() ){
-        qCritical() << "No certificates found";
-        return(1);
-    }
-
-    QFile keyFile( ":/res/SERVER-KEY.pem" );
-    if( !keyFile.open(QIODevice::ReadOnly) ){
-        qCritical() << "Unable to open private key file";
-        return(2);
-    }
-
-    httpServer.sslSetup( certificateChain.at(0), QSslKey( &keyFile, QSsl::Rsa ) );
-    keyFile.close();
-
-    /*
-        --- Routes ---
-    */
-    httpServer.route("/", []() {
-        return "Just what do you think you're doing, Dave?";
-    });
-
-    httpServer.route("/qotd", []() {
-        return "I am putting myself to the fullest possible use, which is all I think that any conscious entity can ever hope to do.";
-    });
-
-    /*
-        --- Server initialisation ---
-    */
-    httpServer.listen( QHostAddress::Any, 443 );
-    qInfo() << "Listening on QHostAddress::Any port 443";
+    HttpClient* client = new HttpClient();
+    QObject::connect(client, &HttpClient::complete, complete );
+    client->get();
     return a.exec();
+}
+
+void complete(){
+    qInfo() << "Request/response completed.";
+    qInfo() << "Exiting.";
+    QCoreApplication::exit(0);
 }

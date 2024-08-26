@@ -55,30 +55,30 @@ void SslServer::init()
     QByteArray key;
     QByteArray cert;
 
-    QFile file_key(":/res/SERVER-KEY.pem");
-    if(file_key.open(QIODevice::ReadOnly)) {
-        key = file_key.readAll();
-        file_key.close();
+    QFile keyFile(":/res/SERVER-KEY.pem");
+    if(keyFile.open(QIODevice::ReadOnly)) {
+        key = keyFile.readAll();
+        keyFile.close();
     }
     else{
-        qDebug() << file_key.errorString();
+        qDebug() << keyFile.errorString();
     }
 
-    QFile file_cert(":/res/SERVER-CERT.pem");
-    if(file_cert.open(QIODevice::ReadOnly)){
-        cert = file_cert.readAll();
-        file_cert.close();
+    QFile certFile(":/res/SERVER-CERT.pem");
+    if(certFile.open(QIODevice::ReadOnly)){
+        cert = certFile.readAll();
+        certFile.close();
     }
     else{
-        qDebug() << file_cert.errorString();
+        qDebug() << certFile.errorString();
     }
 
     // QSslKey ssl_key(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, "localhost");
-    QSslKey ssl_key(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey);
-    QSslCertificate ssl_cert(cert);
+    QSslKey sslKey(key, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey);
+    QSslCertificate sslCert(cert);
 
-    m_server->setPrivateKey( ssl_key );
-    m_server->setLocalCertificate( ssl_cert );
+    m_server->setPrivateKey( sslKey );
+    m_server->setLocalCertificate( sslCert );
 
     // TODO - is this necessary/useful?
     m_server->setSocketOption( QAbstractSocket::KeepAliveOption, true );
