@@ -4,7 +4,7 @@ openssl req -x509 -out SERVER-CERT.pem -subj "/CN=localhost" -nodes -newkey rsa:
 ----- Custom SSL Server -----
 
 2. Verify certificate and key (visual inspection of decoded PEM):
-openssl x509 -in SERVER-CERT  -text -noout
+openssl x509 -in SERVER-CERT.pem  -text -noout
 openssl rsa -in SERVER-KEY.pem -text -noout
 
 3. Validate certificate and key (compare modulus):

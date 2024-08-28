@@ -23,8 +23,6 @@ SOFTWARE.
 */
 #include "signalhandler.hpp"
 
-#include <QMetaEnum>
-
 SignalHandler::SignalHandler(QObject *parent)
     : QObject{parent}
 {

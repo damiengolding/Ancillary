@@ -152,6 +152,19 @@ void SslServer::sslErrors(const QList<QSslError> &errors)
 {
     qInfo() << "SSL Errors:" << errors;
     m_server->ignoreSslErrors( errors );
+
+    /*
+        --- Errors to ignore ---
+    */
+    // QList<QSslCertificate> certs = QSslCertificate::fromPath( ":/res/SERVER-CERT.pem");
+    // QSslError selfSignedCertError( QSslError::SelfSignedCertificate, certs.at(0) );
+    // QSslError hostNameMismatchError( QSslError::HostNameMismatch, certs.at(0) );
+    // QSslError invalidPurposeError( QSslError::InvalidPurpose, certs.at(0) );
+
+    // QList<QSslError> ignoreErrors;
+    // ignoreErrors << selfSignedCertError << hostNameMismatchError << invalidPurposeError;
+
+    // m_socket->ignoreSslErrors(ignoreErrors);
 }
 
 #pragma Slots }

@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include <QObject>
 #include <QSslSocket>
+#include <QMetaEnum>
 
 class SignalHandler : public QObject
 {

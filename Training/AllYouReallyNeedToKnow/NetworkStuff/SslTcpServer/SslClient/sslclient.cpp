@@ -23,9 +23,6 @@ SOFTWARE.
 */
 #include "sslclient.hpp"
 
-#include <QMetaEnum>
-#include <QSslConfiguration>
-
 SslClient::SslClient(QObject *parent)
     : QObject{parent}
 {
@@ -101,7 +98,7 @@ void SslClient::init(){
 
 }
 
-#pragma  {
+#pragma Slots {
 
 void SslClient::disconnected()
 {

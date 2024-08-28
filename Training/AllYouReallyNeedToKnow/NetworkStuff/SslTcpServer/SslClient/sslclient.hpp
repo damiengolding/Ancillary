@@ -26,6 +26,8 @@ SOFTWARE.
 #include <QObject>
 #include <QSslSocket>
 #include <QFile>
+#include <QMetaEnum>
+#include <QSslConfiguration>
 
 class SslClient : public QObject
 {

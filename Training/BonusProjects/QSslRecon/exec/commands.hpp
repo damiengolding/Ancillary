@@ -21,24 +21,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include <QCoreApplication>
-#include "httpclient.hpp"
+#pragma once
 
-void complete();
+#include <QNetworkInterface>
+#include <QString>
+#include <QFile>
+#include <QFileInfo>
+#include <QDir>
+#include <QTextStream>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
-    HttpClient* client = new HttpClient();
-    QObject::connect(client, &HttpClient::complete, complete );
-    client->get();
-    // client->post();
-    // client->put();
-    return a.exec();
-}
+#include <QDomDocument>
+#include <QDomElement>
+#include <QDomNode>
+#include <QDomNodeList>
 
-void complete(){
-    qInfo() << "Request/response completed.";
-    qInfo() << "Exiting.";
-    QCoreApplication::exit(0);
-}
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+
+#include <QMetaEnum>
+
+void showNicForIp( const QString& ipAddress);
+void showAllNics();
+void showAllAddresses();
+
+void writeOutput( const QString& outputFile );
