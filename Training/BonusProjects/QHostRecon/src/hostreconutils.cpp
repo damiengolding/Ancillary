@@ -21,16 +21,61 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
 
-#include <QList>
-#include <QNetworkInterface>
-#include <QString>
-#include <QMetaEnum>
-#include <QDebug>
+#include "../inc/hostreconutils.hpp"
+
+HostReconUtils::HostReconUtils( QObject* parent) : QObject{parent}{}
 
 
-QString IpAddressToNicName( const QString& host ){
+template<typename E>
+E HostReconUtils::EnumFromString(const QString &textValue)
+{
+    bool ok;
+    auto enumResult = static_cast<E>(QMetaEnum::fromType<E>().keyToValue(textValue,&ok));
+    if(!ok){
+        qDebug()<<"Could not convert " << textValue << " to enum.";
+        return{};
+    }
+    return(enumResult);
+}
+
+template<typename E>
+QString HostReconUtils::StringFromEnum(E value)
+{
+    const int intRepresentation = static_cast<int>(value);
+    return( QString::fromUtf8(QMetaEnum::fromType<E>().valueToKey(intRepresentation)) );
+}
+
+QList<QDomElement> HostReconUtils::DomElementList(const QDomNodeList &list){
+    QList<QDomElement> ret;
+    for( int i = 0; i<list.count();++i ){
+        QDomNode node = list.at(i);
+        QDomElement elem = node.toElement();
+        if( elem.isNull() ){
+            continue;
+        }
+        ret.append(elem);
+    }
+    return(ret);
+}
+
+QDomDocument* HostReconUtils::VerifiedDomDocument(const QString &fileName)
+{
+    QFile* file = new QFile(fileName);
+    QDomDocument* doc = new QDomDocument("doc");
+
+    if( !file->open(QIODevice::ReadOnly) ){
+        qDebug() << "Unable to open"<<fileName<<"for reading";
+        return(nullptr);
+    }
+    if( !doc->setContent(file->readAll())  ){
+        qDebug() << "Unable to parse"<<fileName<<"into QDomDocument";
+        return(nullptr);
+    }
+    return(doc);
+}
+
+QString HostReconUtils::IpAddressToNicName( const QString& host ){
     QList<QHostAddress> addresses = QNetworkInterface::allAddresses();
     for( auto address : addresses ){
         QString ipAddress = address.toString();
@@ -50,20 +95,4 @@ QString IpAddressToNicName( const QString& host ){
     return( QString() );
 }
 
-template<typename E>
-E EnumFromString(const QString &textValue){
-    bool ok;
-    auto enumResult = static_cast<E>(QMetaEnum::fromType<E>().keyToValue(textValue,&ok));
-    if(!ok){
-        qDebug()<<"Could not convert " << textValue << " to enum.";
-        return{};
-    }
-    return(enumResult);
-}
-
-
-template<typename E>
-QString StringFromEnum(E value){
-    const int intRepresentation = static_cast<int>(value);
-    return( QString::fromUtf8(QMetaEnum::fromType<E>().valueToKey(intRepresentation)) );
-}
+HostReconUtils::~HostReconUtils(){}

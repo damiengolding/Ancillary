@@ -2,20 +2,21 @@ QT = core network xml
 CONFIG += c++20 cmdline warn_off
 
 SOURCES += \
-    exec/commands.cpp \
         main.cpp \
+    src/hostreconutils.cpp \
+    src/reconcommands.cpp
 
 HEADERS += \
-    exec/commands.hpp \
-    utils/netutils.hpp
+    inc/hostreconutils.hpp \
+    inc/reconcommands.hpp
 
 
 isActiveConfig(debug,debug|release){
-    TARGET = QSslRecond
+    TARGET = QHostRecond
     BUILD_TYPE = Debug
 }
 else{
-    TARGET = QSslRecon
+    TARGET = QHostRecon
     BUILD_TYPE = Release
 }
 

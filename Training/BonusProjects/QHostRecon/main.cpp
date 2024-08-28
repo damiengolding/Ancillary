@@ -26,11 +26,13 @@ SOFTWARE.
 #include <QCommandLineParser>
 #include <QList>
 
-#include "exec/commands.hpp"
+#include "inc/reconcommands.hpp"
 
 void initArgumentParser(QCoreApplication &app, QCommandLineParser &parser);
 void initArgumentOptions(QCoreApplication &app, QCommandLineParser &parser);
 void processArgumentOptions(QCoreApplication &app, QCommandLineParser &parser);
+
+void showExamples();
 
 QList<QCommandLineOption> commandLineOptions;
 
@@ -69,92 +71,86 @@ void initArgumentParser(QCoreApplication &app, QCommandLineParser &parser){
 }
 
 void initArgumentOptions(QCoreApplication &app, QCommandLineParser &parser){
-    // Options
-    parser.addOption({{"t","target"},"Host to query","IP Address"});
-    parser.addOption({{"p","port"},"Port number [443]","int"});
-    parser.addOption({{"o","output"},"Write to XML file. This is ignored operations.","file"});
-    parser.addOption({{"n","nic-for-ip"},"Show the NIC associated with an IP Address","IP Address"});
 
     // Postitional arguments
-    parser.addPositionalArgument("list-nics", "List all registered Network Interface Cards");
-    parser.addPositionalArgument("list-nic-config", "Show the configuration for each registered Network Interface Card");
-    parser.addPositionalArgument("list-ips", "List all addresses associated with this host");
+    parser.addPositionalArgument("local", "Local host checks");
+    parser.addPositionalArgument("all-nics", "Local host check - show all NICs");
+    parser.addPositionalArgument("all-nics-config", "Local host checks - show configuration for all NICs");
+    parser.addPositionalArgument("all-ips", "Local host checks - show all IP addresses on the local host");
+    parser.addPositionalArgument("nic-for-ip", "Local host checks - show NICs for all IP addresses on the local host");
+    parser.addPositionalArgument("domain", "Local host checks - domain membership and hostname");
+
+    parser.addPositionalArgument("remote", "Remote host checks");
+    parser.addPositionalArgument("server", "Remote host checks - create an SSL server.");
+    parser.addPositionalArgument("client", "Remote host checks - create an SSL client.");
+
+    // Options
+    parser.addOption({{"t","target"},"Host to query","IP Address"});
+    parser.addOption({{"p","port"},"Port number [443].Either target for SSL client, or listen socket for SSL server","int"});
+    parser.addOption({{"c","certificate"},"Certificate file to use with SSL server","string"});
+    parser.addOption({{"k","key"},"Key file to use with SSL server","string"});
+    parser.addOption({{"x","xml"},"Write to XML file. This is ignored for some operations.","file"});
+
 }
 
 void processArgumentOptions(QCoreApplication &app, QCommandLineParser &parser){
+    ReconCommands reconCommands;
 
-    if( parser.isSet("output") ){
-        outputFileName = parser.value("output");
+    QStringList arguments = parser.positionalArguments();
+    if( arguments.empty() ){
+        qCritical() << "No mode set";
+        parser.showHelp( 1 );
+    }
+
+    if( parser.isSet("xml") ){
+        outputFileName = parser.value("xml");
+        writeToXml = true;
         if( !outputFileName.endsWith(".xml") ){
             outputFileName += ".xml";
         }
-        writeToXml = true;
     }
 
-    if( parser.isSet("nic-for-ip") ){
-        nicForIpAddress = parser.value("nic-for-ip");
-        showNicForIp( nicForIpAddress );
+    reconCommands.setIpAddress(targetIpAddress);
+    reconCommands.setPortNumber(targetPortNumber);
+    reconCommands.setOutputFileName(outputFileName);
+    reconCommands.setWriteToXml(writeToXml);
+
+    /*
+        --- Process positional arguments and options
+    */
+    QString mode = arguments.front().toLower();
+    if( mode == "local" ){
+        for( auto arg : arguments ){
+            if( arg == "all-nics"){
+                reconCommands.showAllNics();
+            }
+            else if( arg == "all-nics-config") {
+                reconCommands.showAllNicsConfig();
+            }
+            else if( arg == "all-ips") {
+                reconCommands.showAllAddresses();
+            }
+            else if( arg == "nic-for-ip" ){
+                reconCommands.showNicToIp();
+            }
+            else if( arg == "domain") {
+                reconCommands.showDomainHostName();
+            }
+        }
     }
 
     /*
-        --- Process positional arguments and options with brief output first.
-            Certificate interrogation switches are ignored except and treated as a separate operational entity ---
+        --- Finishing touches ---
     */
+    reconCommands.writeOutput();
+}
 
-    QStringList arguments = parser.positionalArguments();
-    if( !arguments.empty() ){
-        if( arguments.contains( "list-nics" ) ){
-            showAllNics();
-        }
-
-        if( arguments.contains( "list-ips" ) ){
-            showAllAddresses();
-        }
-
-        if( writeToXml ){
-            writeOutput( outputFileName );
-        }
-        return;
-    }
-
-    /*
-        --- Certificate interrogation options ---
-    */
-
-    if ( parser.isSet("target") ){
-        targetIpAddress = parser.value("target");
-            if( parser.isSet("port") ){
-                targetPortNumber = parser.value("port").toInt();
-                return;
-            }
-    }
-
-    /*
-       Individually:
-        if(parser.isSet(<QString name|QCommandLineOption>)){
-            Either get the value of an option:
-                QString s = parser.value(<QString name|QCommandLineOption>);
-            Or operate on a switch, e.g. parser.isSet("verbose"):
-        }
-       Grouped as QString names:
-            for(QString n : parser.optionNames()){
-                As above, but no isSet(...) test need
-            }
-       Grouped as QCommandLineOptions:
-            for(QCommandLineOption clo : commandLineOptions ){
-                As above
-            }
-       Manage incorrect/unrecognised/missing options:
-            for( QString opt : parser.unknownOptionNames() ){
-                qWarning() << ""; // recoverable error
-                qCritical() << ""; // non-recoverable error, usually a system error such as read/write/execute privileges
-                qFatal(""); // non-recoverable error, will exit and dump core
-            }
-        Poistional arguments:
-            for(QString pos : parser.positionalArguments()){
-                qDebug() << "[debug] Positional argument: " << pos;
-            }
-    */
+void showExamples(){
+    qInfo() << "########## QHostRecon.exe usage examples ##########";
+    qInfo() << "\tqhostrecon.exe local_host -o list-nics";
+    qInfo() << "\tqhostrecon.exe local_host -o list-nics-config";
+    qInfo() << "\tqhostrecon.exe local_host -o list-ips";
+    qInfo() << "\tqhostrecon.exe local_host -o nic-for-ip:192.168.4.100";
 
 }
 
