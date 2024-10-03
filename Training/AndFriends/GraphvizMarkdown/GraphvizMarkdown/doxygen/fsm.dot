@@ -1,0 +1,67 @@
+strict digraph my_fsm{
+	graph [
+		rankdir="TB"
+		compound=true;
+		labelloc="t";
+		label="My Finite State Machine";
+		fontname="JetBrains Mono";
+		fontsize=22;
+		ranksep=1;
+	]
+	node [ fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record ];
+	edge  [ fontname="JetBrains Mono", fontsize=12, style=dashed ];
+	
+	// Nodes
+	entry [label="" shape="circle"]
+	exit_fail_load [label="" shape="doublecircle"]
+	exit_fail_process [label="" shape="doublecircle"]
+	exit_fail_save [label="" shape="doublecircle"]
+	exit_success [label="" shape="doublecircle"]
+	
+	// Clusters
+	subgraph cluster_parent {
+		label="StateMachine\n-----------------"
+		fontsize=20
+		subgraph cluster_load_data {
+			label="LoadData\n<<parallel>>\n-----------------"
+			fontsize=16
+			lfd [label=<{ <b>LoadFromDatabase</b>|Loads data from an RDBMS<br align="left"/> }>]
+			lfc [label=<{ <b>LoadFromCsv</b>|Loads data from a Comma Separated Value file<br align="left"/> }>]
+			lft [label=<{ <b>LoadFromTsv</b>|Loads data from a Tab Separated Value file<br align="left"/> }>]
+		}
+		subgraph cluster_process_data {
+			label="ProcessData\n-----------------"
+			fontsize=16
+			// Nodes
+			dss [label=<{ <b>DoSomeStuff</b>|Does some stuff<br align="left"/> }>]
+			dms [label=<{ <b>DoMoreStuff</b>|Does some more stuff<br align="left"/> }>]
+			dec [label=<{ <b>DecideWhatToDoNext</b>|Decides what to do next<br align="left"/> }>]
+			either_this [label=<{ <b>EitherDoThisStuffNext</b>|I might do this stuff next . . .<br align="left"/> }>]
+			or_this [label=<{ <b>DoThisStuffNext</b>|. . . or I might do this stuff<br align="left"/> }>]
+			
+			// Edges
+			dss->dms [label="DidSomeStuff"]
+			dms->dec [label="DidMoreStuff"]
+			dec->either_this [label="CouldntBeBotheredToDoThisStuffNext"]
+			dec->or_this [label="DecidedToDoThisStuffNext"]
+		}
+		subgraph cluster_save_output {
+			label="SaveOutput\n<<parallel>>\n-----------------"
+			fontsize=16
+			std [label=<{ <b>SaveToDatabase</b>|Saves data to an RDBMS<br align="left"/> }>]
+			stc [label=<{ <b>SaveToCsv</b>|Saves data to Comma Separated Value file<br align="left"/> }>]
+			stt [label=<{ <b>SaveToTsv</b>|Saves data to Tab Separated Value file<br align="left"/> }>]
+		}
+	}
+	
+	// Edges
+	entry->lfc [ label="start" lhead=cluster_parent style=solid ]
+	lfc->dss [ label="InternalTransitionOne" ltail=cluster_load_data lhead=cluster_process_data style=solid ]
+	either_this->stc [ label="InternalTransitionTwo" ltail=cluster_process_data lhead=cluster_save_output style=solid ]
+	
+	lfc->exit_fail_load [label="Exit (fail - load)" ltail=cluster_load_data]
+	dec->exit_fail_process [label="Exit (fail - process)"  ltail=cluster_process_data]
+	stc->exit_fail_save [label="Exit (fail - save)" ltail=cluster_save_output]
+	stc->exit_success [label="Exit (success)"ltail=cluster_save_output]
+
+}

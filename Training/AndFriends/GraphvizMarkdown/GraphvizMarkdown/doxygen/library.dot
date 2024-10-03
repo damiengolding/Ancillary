@@ -1,6 +1,7 @@
 strict digraph my_library{
 	graph [
 		rankdir="TB"
+		beautify=true;
 		compound=true;
 		labelloc="t";
 		label="My library";
@@ -12,11 +13,6 @@ strict digraph my_library{
 	edge  [ fontname="JetBrains Mono", fontsize=10, style=dashed ];
 
 	// Nodes
-	//enum [label=<{ <b>&lt;&lt;enum&gt;&gt; MyEnum</b>|enum MyEnum &#123;<br align="left" />UNDEFINED,<br align="left" />FIRST,<br align="left" />SECOND,<br align="left" />NUM_ITEMS&#125;&#59;<br align="left" /> }>];
-	//struct [label="<<struct>> MyStruct\n-------------------\lcenter\nleft\lright\r", shape="component"];
-		
-	//tsv->enum [style="invis"]
-	//database->struct [style="invis"]
 		
 	// Clusters
 	subgraph cluster_first{
@@ -27,9 +23,10 @@ strict digraph my_library{
 	
 	subgraph cluster_data_manip{
 		label="GoldingsGym::MyProject::DataManip"
-		slr  [ label=<{ <b>SimpleLinearRegression</b>|+properties<br align="left"/>. . .<br align="left" />|+members<br align="left"/>. . . <br align="left" />}> ];
-		mlr  [ label=<{ <b>MultipleLinearRegression</b>|+properties<br align="left" />. . .|+members<br align="left" />. . . }> ];
-		tsa  [ label=<{ <b>TimeSeriesAnalysis</b>|+properties<br align="left" />. . .|+members<br align="left" />. . . }> ];
+		//rank="same"
+		slr  [ label=<{ <b>SimpleLinearRegression</b>|+properties<br align="left"/>. . .<br align="left" />|+members<br align="left"/>. . .<br align="left" />}> ];
+		mlr  [ label=<{ <b>MultipleLinearRegression</b>|+properties<br align="left" />. . .<br align="left" />|+members<br align="left" />. . .<br align="left" />}> ];
+		tsa  [ label=<{ <b>TimeSeriesAnalysis</b>|+properties<br align="left" />. . .<br align="left" />|+members<br align="left" />. . .<br align="left" />}> ];
 		
 		slr->mlr [style="invis"]
 		mlr->tsa [style="invis"]

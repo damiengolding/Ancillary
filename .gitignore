@@ -1,3 +1,7 @@
+# General files (deployment, dot output etc)
+*.ps1
+*.png
+
 # C++ objects and libs
 *.slo
 *.lo
