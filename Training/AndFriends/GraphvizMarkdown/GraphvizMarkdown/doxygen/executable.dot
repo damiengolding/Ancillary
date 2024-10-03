@@ -1,0 +1,30 @@
+strict digraph my_executable{
+	graph [
+		compound=true
+		labelloc="t"
+		label="My executable"
+		fontname="JetBrains Mono"
+		fontsize=18
+		ranksep=1
+	]
+	
+	node [ fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record ];
+	edge  [ fontname="JetBrains Mono", fontsize=10, style=dashed ];
+	
+	// Nodes
+	main [label=<{ <b>Main</b> | int main(int argc, char *argv[]) }>];
+	arg_parser [ label=<{ <b>Argument parser</b> | (QCommandLineParser) }> ];
+	command_one [ label=<{ <b>Commands one</b> | (commands_one.hpp) }> ];
+	command_two [ label=<{ <b>Commands two</b> | (commands_two.hpp) }> ];
+	command_three [ label=<{ <b>Commands three</b> | (commands_three.hpp) }> ];
+	
+	// Clusters
+	subgraph cluster_commands{
+		label="Commands"
+		command_one; command_two; command_three
+	}
+	
+	// Edges
+	main->arg_parser
+	arg_parser->command_two [ lhead="cluster_commands" ];
+}

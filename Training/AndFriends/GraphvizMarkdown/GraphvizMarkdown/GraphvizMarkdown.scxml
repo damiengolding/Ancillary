@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="GoldingsGym::Qt6PenTest::GraphvizMarkdown" qt:editorversion="14.0.1" initial="MyStateMachine">
+    <qt:editorinfo initialGeometry="57.33;57.32;-20;-20;40;40"/>
+    <state id="MyStateMachine">
+        <qt:editorinfo geometry="247.69;58.35;-93.76;-50;869.66;894.41" scenegeometry="247.69;58.35;153.93;8.35;869.66;894.41"/>
+        <parallel id="LoadData">
+            <qt:editorinfo geometry="34.18;64.92;-72.03;-33.22;792.27;156.65" scenegeometry="281.87;123.27;209.84;90.05;792.27;156.65"/>
+            <transition type="external" event="InternalTransitionOne" target="ProcessData">
+                <qt:editorinfo endTargetFactors="49.98;11.91"/>
+            </transition>
+            <transition type="external" event="FailLoadData" target="FinalStateOne"/>
+            <state id="LoadFromDatabase">
+                <qt:editorinfo geometry="66.17;54.83;-91;-50;182;100" scenegeometry="352.10;210.85;261.10;160.85;182;100"/>
+            </state>
+            <state id="LoadFromCsv">
+                <qt:editorinfo geometry="320.05;56.88;-69.50;-50;139;100" scenegeometry="605.98;212.90;536.48;162.90;139;100"/>
+            </state>
+            <state id="LoadFromTsv">
+                <qt:editorinfo geometry="586.15;52.79;-60;-50;120;100" scenegeometry="872.08;208.81;812.08;158.81;120;100"/>
+            </state>
+        </parallel>
+        <state id="ProcessData">
+            <qt:editorinfo geometry="44.64;308.09;-83.03;-63.31;793.36;355" scenegeometry="292.33;366.44;209.30;303.13;793.36;355"/>
+            <transition type="external" event="FailProcessData" target="FinalStateTwo"/>
+            <state id="DoSomeStuff">
+                <qt:editorinfo geometry="-1.54;48.11;-60;-50;165.40;100" scenegeometry="292.74;521;232.74;471;165.40;100"/>
+                <transition type="external" event="DidSomeStuff" target="DoMoreStuff"/>
+            </state>
+            <state id="DoMoreStuff">
+                <qt:editorinfo geometry="270.73;48.11;-60;-50;120;100" scenegeometry="566.03;521;506.03;471;120;100"/>
+                <transition type="external" event="DidMoreStuff" target="DecideWhatToDoNext">
+                    <qt:editorinfo endTargetFactors="23.39;49.12"/>
+                </transition>
+            </state>
+            <state id="EitherDoThisStuffNext">
+                <qt:editorinfo geometry="103.59;224.16;-106;-50;212;100" scenegeometry="399.91;646.90;293.91;596.90;212;100"/>
+            </state>
+            <state id="DecideWhatToDoNext">
+                <qt:editorinfo geometry="569.62;47.09;-105.50;-50;211;100" scenegeometry="864.92;519.98;759.42;469.98;211;100"/>
+                <transition type="external" event="CouldntBeBotheredToDoThisStuffNext" target="EitherDoThisStuffNext">
+                    <qt:editorinfo movePoint="-279.44;13.30"/>
+                </transition>
+                <transition type="external" event="DecidedToDoThisStuffNext" target="OrDoThisStuffNext"/>
+            </state>
+            <state id="OrDoThisStuffNext">
+                <qt:editorinfo geometry="599.30;219.04;-93;-50;186;100" scenegeometry="895.62;641.78;802.62;591.78;186;100"/>
+            </state>
+            <transition type="external" event="InternalTransitionTwo" target="SaveOutput">
+                <qt:editorinfo endTargetFactors="53.44;8.26"/>
+            </transition>
+        </state>
+        <parallel id="SaveOutput">
+            <qt:editorinfo geometry="29.70;700.11;-68.61;-54.09;785.13;165.64" scenegeometry="277.39;758.46;208.78;704.37;785.13;165.64"/>
+            <state id="SaveToDatabase">
+                <qt:editorinfo geometry="44.01;40.95;-79.50;-50;159;100" scenegeometry="321.40;799.41;241.90;749.41;159;100"/>
+            </state>
+            <state id="SaveToCsv">
+                <qt:editorinfo geometry="325.49;37.88;-60;-50;120;100" scenegeometry="602.88;796.34;542.88;746.34;120;100"/>
+            </state>
+            <state id="SaveToTsv">
+                <qt:editorinfo geometry="582.41;36.85;-60;-50;120;100" scenegeometry="859.80;795.31;799.80;745.31;120;100"/>
+            </state>
+            <transition type="external" event="FailSaveData" target="FinalStateThree"/>
+        </parallel>
+    </state>
+    <final id="FinalStateOne">
+        <qt:editorinfo geometry="1207.80;168.89;-20;-20;40;40" scenegeometry="1207.80;168.89;1187.80;148.89;40;40"/>
+    </final>
+    <final id="FinalStateTwo">
+        <qt:editorinfo geometry="1191.44;474.93;-20;-20;40;40" scenegeometry="1191.44;474.93;1171.44;454.93;40;40"/>
+    </final>
+    <final id="FinalStateThree">
+        <qt:editorinfo geometry="1191.44;788.15;-20;-20;40;40" scenegeometry="1191.44;788.15;1171.44;768.15;40;40"/>
+    </final>
+</scxml>
