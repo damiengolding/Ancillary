@@ -1,0 +1,8 @@
+strict digraph simple_process{
+
+	a->b
+	a->c
+	b->d
+	b->d
+
+} // End of digraph
