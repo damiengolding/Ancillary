@@ -1,5 +1,7 @@
 strict digraph simple_process{
-
+	rankdir=LR;
+	graph [fontname="JetBrains Mono",fontsize="12"];
+	compound=true;labelloc="t";label="Simple process";
 	a->b
 	a->c
 	b->d

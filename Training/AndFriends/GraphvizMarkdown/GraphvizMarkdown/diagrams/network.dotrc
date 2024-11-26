@@ -1,18 +1,19 @@
 strict digraph my_network{
-rankdir=TB;
-graph [fontname="JetBrains Mono",fontsize="16"];
-compound=true;labelloc="t";label="Network model";
-	2 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.*.*.*",style="solid"];
-	4 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.*.*",style="solid"];
-	5 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.*",style="solid"];
-	12 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.29",style="solid"];
-	11 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.32",style="solid"];
-	10 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.36",style="solid"];
-	9 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.42",style="solid"];
-	8 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.43",style="solid"];
-	7 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.45",style="solid"];
-	6 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="192.168.4.46",style="solid"];
-	0 [shape=box,fontcolor="Black",color="#000000",fontname="Open Sans",fontsize="10",label="Attacker",style="solid"];
+	graph[rankdir=TB, fontname="JetBrains Mono",fontsize="12",compound=true;labelloc="t";label="Network model"];
+	node[fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record, nojustify=true];
+	edge[fontname="JetBrains Mono", fontsize=10, style=solid];
+
+	2 [label="192.*.*.*"];
+	4 [label="192.168.*.*"];
+	5 [label="192.168.4.*"];
+	12 [label="192.168.4.29"];
+	11 [label="192.168.4.32"];
+	10 [label="192.168.4.36"];
+	9 [label="192.168.4.42"];
+	8 [label="192.168.4.43"];
+	7 [label="192.168.4.45"];
+	6 [label="192.168.4.46"];
+	0 [label="Attacker"];
 	0->2 [color="Black"];
 	2->4 [color="Black"];
 	4->5 [color="Black"];

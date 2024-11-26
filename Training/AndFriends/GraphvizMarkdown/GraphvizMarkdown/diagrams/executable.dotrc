@@ -1,15 +1,7 @@
 strict digraph my_executable{
-	graph [
-		compound=true
-		labelloc="t"
-		label="My executable"
-		fontname="JetBrains Mono"
-		fontsize=18
-		ranksep=1
-	]
-	
-	node [ fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record ];
-	edge  [ fontname="JetBrains Mono", fontsize=10, style=dashed ];
+	graph[rankdir=TB, fontname="JetBrains Mono",fontsize="12",compound=true;labelloc="t";label="My executable"];
+	node[fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record, nojustify=true];
+	edge[fontname="JetBrains Mono", fontsize=10, style=solid];
 	
 	// Nodes
 	main [label=<{ <b>Main</b> | int main(int argc, char *argv[]) }>];

@@ -1,15 +1,7 @@
 strict digraph my_fsm{
-	graph [
-		rankdir="TB"
-		compound=true;
-		labelloc="t";
-		label="My Finite State Machine";
-		fontname="JetBrains Mono";
-		fontsize=22;
-		ranksep=1;
-	]
-	node [ fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record ];
-	edge  [ fontname="JetBrains Mono", fontsize=12, style=dashed ];
+	graph[rankdir=TB, fontname="JetBrains Mono",fontsize="12",compound=true;labelloc="t";label="My Finite State Machine"];
+	node[fontname="JetBrains Mono", fontsize=14, style=rounded, shape=record, nojustify=true];
+	edge[fontname="JetBrains Mono", fontsize=10, style=solid];
 	
 	// Nodes
 	entry [label="" shape="circle"]
